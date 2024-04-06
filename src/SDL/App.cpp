@@ -12,7 +12,7 @@ App::App(uint16_t screenWidth, uint16_t screenHeight) : _screenWidth(screenWidth
     }
 
     _window = SDL_CreateWindow(
-        "2D Game",
+        "Game",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
         _screenWidth,

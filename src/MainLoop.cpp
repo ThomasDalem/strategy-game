@@ -1,15 +1,13 @@
 #include "entt.hpp"
 #include "MainLoop.hpp"
-#include "SDL/Texture.hpp"
 #include "utils/TexturesLoader.hpp"
 #include "utils/Timer.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
-#include "systems/CollisionSystem.hpp"
 
-#include "components/Sprite.hpp"
+#include "entities/Building.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -27,10 +25,13 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
+    makeMachineGun(reg, texturesLoader, 300, 300);
+
     Timer frameTimer;
     Timer animTimer;
 
     animTimer.start();
+
     while (!_quit) {
         frameTimer.start();
 
@@ -49,7 +50,6 @@ void MainLoop::loop()
 
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
-        handleCollisions(reg);
         updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();

@@ -2,6 +2,7 @@
 #include "components/Sprite.hpp"
 #include "components/Collider.hpp"
 #include "components/Rectangle.hpp"
+#include "components/Circle.hpp"
 
 void drawCollider(Collider &collider, SDL::Renderer &renderer)
 {
@@ -27,6 +28,14 @@ void drawColliders(entt::registry &reg, SDL::Renderer &renderer)
     auto collidersView = reg.view<Collider>();
     collidersView.each([&](Collider &collider){
         drawCollider(collider, renderer);
+    });
+}
+
+void drawCircles(entt::registry &reg, SDL::Renderer &renderer)
+{
+    auto view = reg.view<Circle>();
+    view.each([&](Circle &circle){
+        renderer.drawCircle(circle.x, circle.y, circle.radius, circle.color);
     });
 }
 
@@ -70,6 +79,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         }
     };
     view.each(f);
+    drawCircles(reg, renderer);
     if (debug) {
         drawColliders(reg, renderer);
     }

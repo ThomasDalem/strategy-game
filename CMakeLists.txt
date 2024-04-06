@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
 
-project(2d_game)
+project(game)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
@@ -21,6 +21,7 @@ set(SRCS
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
+    src/entities/Building.cpp
     src/systems/RenderSystem.cpp
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
@@ -53,6 +54,9 @@ set(HEADERS
     src/components/Relationship.hpp
     src/components/Collider.hpp
     src/components/Rectangle.hpp
+    src/components/game/BuildingInfo.hpp
+    src/components/Circle.hpp
+    src/entities/Building.hpp
     src/systems/RenderSystem.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
@@ -69,8 +73,9 @@ endif()
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+find_package(SDL2_gfx REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_GFX_INCLUDE_DIRS})
 
-add_executable(2d_game ${SRCS} ${HEADERS})
-target_include_directories(2d_game PRIVATE "src/" "include/")
-target_link_libraries(2d_game ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+add_executable(game ${SRCS} ${HEADERS})
+target_include_directories(game PRIVATE "src/" "include/")
+target_link_libraries(game ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES})

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "SDL2/SDL2_gfxPrimitives.h"
 #include "Renderer.hpp"
 
 using namespace SDL;
@@ -94,6 +95,11 @@ void Renderer::drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint
     setDrawColor(r, g, b, a);
     SDL_RenderFillRect(_renderer, &sdlRect);
     setDrawColor(255, 255, 255, 0);
+}
+
+void Renderer::drawCircle(int x, int y, int radius, const Color &color)
+{
+    circleRGBA(_renderer, x, y, radius, color.r, color.g, color.b, color.a);
 }
 
 void Renderer::present()
