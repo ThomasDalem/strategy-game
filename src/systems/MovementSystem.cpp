@@ -2,7 +2,7 @@
 #include "components/Movement.hpp"
 #include "utils/TransformUtils.hpp"
 
-void moveSprites(entt::registry &reg, uint32_t deltaTime)
+void moveSprites(entt::registry &reg, uint64_t deltaTime)
 {
     auto view = reg.view<Movement, Sprite>();
 

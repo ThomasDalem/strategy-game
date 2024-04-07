@@ -27,7 +27,8 @@ set(SRCS
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
     src/systems/CollisionSystem.cpp
-    src/systems/game/EnemyMovement.cpp
+    src/systems/game/EnemySystem.cpp
+    src/systems/game/BuildingsFiring.cpp
 )
 
 set(HEADERS
@@ -65,7 +66,8 @@ set(HEADERS
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
     src/systems/CollisionSystem.hpp
-    src/systems/game/EnemyMovement.hpp
+    src/systems/game/EnemySystem.hpp
+    src/systems/game/BuildingsFiring.hpp
 )
 
 if (MSVC)

@@ -11,8 +11,11 @@ entt::entity makeMachineGun(entt::registry &reg, TexturesLoader &textureLoader, 
     const int health = 100;
     const int ammo = 500;
     const int range = 200;
+    const int damage = 10;
+    const int fireRate = 10;
+    const uint64_t lastShotTime = 0;
 
-    reg.emplace<BuildingInfo>(e, health, ammo, range);
+    reg.emplace<BuildingInfo>(e, health, ammo, range, damage, fireRate, lastShotTime);
     const Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -37,8 +40,11 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     const int health = 100;
     const int ammo = 0;
     const int range = 0;
+    const int damage = 0;
+    const int fireRate = 0;
+    const uint64_t lastShotTime = 0;
 
-    reg.emplace<BuildingInfo>(e, health, ammo, range);
+    reg.emplace<BuildingInfo>(e, health, ammo, range, damage, fireRate, lastShotTime);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden

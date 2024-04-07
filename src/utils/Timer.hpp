@@ -9,10 +9,10 @@ public:
     ~Timer();
 
     void start();
-    uint32_t getDeltaTime() const;
+    uint64_t getDeltaTime() const;
 
 private:
-    uint32_t _begin;
+    uint64_t _begin;
 };
 
 #endif // TIMER_HPP

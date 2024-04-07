@@ -11,10 +11,10 @@ Timer::~Timer()
 
 void Timer::start()
 {
-    _begin = SDL_GetTicks();
+    _begin = SDL_GetTicks64();
 }
 
-uint32_t Timer::getDeltaTime() const
+uint64_t Timer::getDeltaTime() const
 {
-    return SDL_GetTicks() - _begin;
+    return SDL_GetTicks64() - _begin;
 }

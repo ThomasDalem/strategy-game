@@ -3,6 +3,6 @@
 
 #include "entt.hpp"
 
-void animateSprites(entt::registry &reg, uint32_t frametime);
+void animateSprites(entt::registry &reg, uint64_t frametime);
 
 #endif // ANIMATION_SYSTEM_HPP

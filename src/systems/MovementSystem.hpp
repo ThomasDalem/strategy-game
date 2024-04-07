@@ -3,6 +3,6 @@
 
 #include "entt.hpp"
 
-void moveSprites(entt::registry &reg, uint32_t deltaTime);
+void moveSprites(entt::registry &reg, uint64_t deltaTime);
 
 #endif // MOVEMENT_SYSTEM_HPP

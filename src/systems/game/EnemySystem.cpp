@@ -1,8 +1,9 @@
-#include "EnemyMovement.hpp"
+#include "EnemySystem.hpp"
 #include "components/tags/Base.hpp"
 #include "components/Movement.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/Sprite.hpp"
+#include <iostream>
 
 void moveEnemies(entt::registry &reg)
 {
@@ -24,4 +25,25 @@ void moveEnemies(entt::registry &reg)
             movement.move = true;
         }
     }
+}
+
+void checkEnemyHealth(entt::registry &reg)
+{
+    auto enemies = reg.view<Enemy>();
+
+    for (entt::entity e : enemies) {
+        const Enemy &infos = reg.get<Enemy>(e);
+
+        if (infos.health <= 0) {
+            reg.destroy(e);
+            std::cout << "Destroyed entity\n";
+            continue;
+        }
+    }
+}
+
+void enemySystem(entt::registry &reg)
+{
+    checkEnemyHealth(reg);
+    moveEnemies(reg);
 }

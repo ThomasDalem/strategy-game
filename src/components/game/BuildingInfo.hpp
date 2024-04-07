@@ -5,7 +5,10 @@ struct BuildingInfo
 {
     int health;
     int ammo;
-    int rangeRadius;
+    int range;
+    int damage;
+    int firerate;
+    uint64_t lastShotTime;
 };
 
 #endif // BUILDING_INFO_HPP

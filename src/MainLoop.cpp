@@ -6,7 +6,8 @@
 #include "systems/RenderSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
-#include "systems/game/EnemyMovement.hpp"
+#include "systems/game/EnemySystem.hpp"
+#include "systems/game/BuildingsFiring.hpp"
 
 #include "entities/Building.hpp"
 #include "entities/Infantry.hpp"
@@ -27,14 +28,14 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    makeMachineGun(reg, texturesLoader, 300.0, 300.0);
+    makeMachineGun(reg, texturesLoader, 500.0, 400.0);
     makeInfantry(reg, texturesLoader, 800.0, 600.0);
     makeBase(reg, texturesLoader, 500.0, 100.0);
 
     Timer frameTimer;
-    Timer animTimer;
+    Timer gameTimer;
 
-    animTimer.start();
+    gameTimer.start();
 
     while (!_quit) {
         frameTimer.start();
@@ -52,9 +53,10 @@ void MainLoop::loop()
         _app.getRenderer().setDrawColor(50, 50, 50, 0);
         _app.getRenderer().clear();
 
-        moveEnemies(reg);
+        enemySystem(reg);
+        shootEnemies(reg, gameTimer.getDeltaTime());
         moveSprites(reg, frameTimer.getDeltaTime());
-        animateSprites(reg, animTimer.getDeltaTime());
+        animateSprites(reg, gameTimer.getDeltaTime());
         updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();
