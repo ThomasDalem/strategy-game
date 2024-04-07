@@ -1,7 +1,7 @@
-#ifndef BUILDING_INFO_HPP
-#define BUILDING_INFO_HPP
+#ifndef UNIT_INFO_HPP
+#define UNIT_INFO_HPP
 
-struct BuildingInfo
+struct UnitInfo
 {
     int health;
     int ammo;
@@ -11,4 +11,4 @@ struct BuildingInfo
     uint64_t lastShotTime;
 };
 
-#endif // BUILDING_INFO_HPP
+#endif // UNIT_INFO_HPP

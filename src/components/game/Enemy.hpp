@@ -1,15 +1,11 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
-enum EnemyType
-{
-    INFANTRY,
-    TANK
-};
+#include "Unit.hpp"
 
 struct Enemy
 {
-    EnemyType type;
+    UnitType type;
     int health;
 };
 

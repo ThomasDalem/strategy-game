@@ -7,10 +7,9 @@
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/game/EnemySystem.hpp"
-#include "systems/game/BuildingsFiring.hpp"
+#include "systems/game/UnitSystem.hpp"
 
-#include "entities/Building.hpp"
-#include "entities/Infantry.hpp"
+#include "entities/Units.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -28,8 +27,8 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    makeMachineGun(reg, texturesLoader, 500.0, 400.0);
-    makeInfantry(reg, texturesLoader, 800.0, 600.0);
+    makeAlliedInfantry(reg, texturesLoader, 500.0, 400.0);
+    makeEnemyInfantry(reg, texturesLoader, 800.0, 600.0);
     makeBase(reg, texturesLoader, 500.0, 100.0);
 
     Timer frameTimer;
