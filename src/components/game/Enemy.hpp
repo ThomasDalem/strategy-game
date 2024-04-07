@@ -3,10 +3,6 @@
 
 #include "Unit.hpp"
 
-struct Enemy
-{
-    UnitType type;
-    int health;
-};
+struct Enemy {};
 
 #endif // ENEMY_HPP

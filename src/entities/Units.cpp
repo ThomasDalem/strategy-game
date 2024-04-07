@@ -10,6 +10,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
 {
     const entt::entity e = reg.create();
 
+    const UnitType unitType = UnitType::BASE;
     const int health = 100;
     const int ammo = 0;
     const int range = 0;
@@ -17,7 +18,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     const int fireRate = 0;
     const uint64_t lastShotTime = 0;
 
-    reg.emplace<UnitInfo>(e, health, ammo, range, damage, fireRate, lastShotTime);
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -38,6 +39,7 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
 {
     const entt::entity e = reg.create();
 
+    const UnitType unitType = UnitType::INFANTRY;
     const int health = 100;
     const int ammo = 500;
     const int range = 200;
@@ -45,7 +47,7 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int fireRate = 10;
     const uint64_t lastShotTime = 0;
 
-    reg.emplace<UnitInfo>(e, health, ammo, range, damage, fireRate, lastShotTime);
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
     const Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -67,6 +69,15 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
 {
     const entt::entity e = reg.create();
 
+    const UnitType unitType = UnitType::INFANTRY;
+    const int health = 100;
+    const int ammo = 500;
+    const int range = 200;
+    const int damage = 10;
+    const int fireRate = 10;
+    const uint64_t lastShotTime = 0;
+
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden

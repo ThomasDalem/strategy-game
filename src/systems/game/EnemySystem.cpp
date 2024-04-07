@@ -3,6 +3,7 @@
 #include "components/Movement.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/Sprite.hpp"
+#include "components/game/UnitInfo.hpp"
 #include <iostream>
 
 void moveEnemies(entt::registry &reg)
@@ -29,10 +30,10 @@ void moveEnemies(entt::registry &reg)
 
 void checkEnemyHealth(entt::registry &reg)
 {
-    auto enemies = reg.view<Enemy>();
+    auto enemies = reg.view<Enemy, UnitInfo>();
 
     for (entt::entity e : enemies) {
-        const Enemy &infos = reg.get<Enemy>(e);
+        const UnitInfo &infos = reg.get<UnitInfo>(e);
 
         if (infos.health <= 0) {
             reg.destroy(e);
