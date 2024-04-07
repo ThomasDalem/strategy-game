@@ -6,8 +6,10 @@
 #include "systems/RenderSystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
+#include "systems/game/EnemyMovement.hpp"
 
 #include "entities/Building.hpp"
+#include "entities/Infantry.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -25,7 +27,9 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    makeMachineGun(reg, texturesLoader, 300, 300);
+    makeMachineGun(reg, texturesLoader, 300.0, 300.0);
+    makeInfantry(reg, texturesLoader, 800.0, 600.0);
+    makeBase(reg, texturesLoader, 500.0, 100.0);
 
     Timer frameTimer;
     Timer animTimer;
@@ -48,6 +52,7 @@ void MainLoop::loop()
         _app.getRenderer().setDrawColor(50, 50, 50, 0);
         _app.getRenderer().clear();
 
+        moveEnemies(reg);
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
         updateRenderSystem(reg, _app.getRenderer(), true);

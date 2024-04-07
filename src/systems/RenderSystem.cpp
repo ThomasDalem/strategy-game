@@ -59,10 +59,10 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         }
 
         SDL_Rect rect = {
-            sprite.pos.x,
-            sprite.pos.y,
-            sprite.rect.width,
-            sprite.rect.height
+            static_cast<int>(sprite.pos.x),
+            static_cast<int>(sprite.pos.y),
+            static_cast<int>(sprite.rect.width),
+            static_cast<int>(sprite.rect.height)
         };
 
         if (sprite.textureRect.width < 0 || sprite.textureRect.height < 0) {

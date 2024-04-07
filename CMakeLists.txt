@@ -22,10 +22,12 @@ set(SRCS
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
     src/entities/Building.cpp
+    src/entities/Infantry.cpp
     src/systems/RenderSystem.cpp
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
     src/systems/CollisionSystem.cpp
+    src/systems/game/EnemyMovement.cpp
 )
 
 set(HEADERS
@@ -56,11 +58,14 @@ set(HEADERS
     src/components/Rectangle.hpp
     src/components/game/BuildingInfo.hpp
     src/components/Circle.hpp
+    src/components/tags/Base.hpp
     src/entities/Building.hpp
+    src/entities/Infantry.hpp
     src/systems/RenderSystem.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
     src/systems/CollisionSystem.hpp
+    src/systems/game/EnemyMovement.hpp
 )
 
 if (MSVC)

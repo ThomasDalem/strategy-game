@@ -12,11 +12,10 @@ void moveSprites(entt::registry &reg, uint32_t deltaTime)
     for (const entt::entity e : view) {
         Movement &mov = reg.get<Movement>(e);
 
-        Vec2d posDelta = mov.direction * mov.speed * deltaTime;
-        if (posDelta.x && posDelta.y) {
-            posDelta.x /= 2.0;
-            posDelta.y /= 2.0;
+        if (mov.move == false) {
+            continue;
         }
+        Vec2d posDelta = mov.direction * mov.speed * deltaTime;
         translate(reg, e, posDelta);
     }
 }

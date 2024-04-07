@@ -4,6 +4,7 @@
 #include "entt.hpp"
 #include "utils/TexturesLoader.hpp"
 
-entt::entity makeMachineGun(entt::registry &reg, TexturesLoader &textureLoader, int x, int y);
+entt::entity makeMachineGun(entt::registry &reg, TexturesLoader &textureLoader, double x, double y);
+entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double x, double y);
 
 #endif // BUILDING_HPP

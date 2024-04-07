@@ -6,8 +6,8 @@
 struct Circle
 {
     Color color;
-    int x;
-    int y;
+    double x;
+    double y;
     int radius;
     bool hidden;
 };

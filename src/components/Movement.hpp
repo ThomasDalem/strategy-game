@@ -5,10 +5,9 @@
 
 struct Movement
 {
-    Vec2i direction;
+    Vec2d direction;
     double speed;
     bool move;
 };
-
 
 #endif // MOVEMENT_HPP
