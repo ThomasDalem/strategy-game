@@ -59,6 +59,8 @@ set(HEADERS
     src/components/Circle.hpp
     src/components/game/UnitInfo.hpp
     src/components/game/Unit.hpp
+    src/components/game/Allied.hpp
+    src/components/game/Enemy.hpp
     src/components/tags/Base.hpp
     src/entities/Units.hpp
     src/systems/RenderSystem.hpp

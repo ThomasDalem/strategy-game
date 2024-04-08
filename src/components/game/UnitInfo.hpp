@@ -12,6 +12,7 @@ struct UnitInfo
     int damage;
     int firerate;
     uint64_t lastShotTime;
+    bool isActive;
 };
 
 #endif // UNIT_INFO_HPP

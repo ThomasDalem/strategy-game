@@ -3,6 +3,7 @@
 #include "components/Movement.hpp"
 #include "components/Circle.hpp"
 #include "components/game/Enemy.hpp"
+#include "components/game/Allied.hpp"
 #include "components/game/UnitInfo.hpp"
 #include "components/tags/Base.hpp"
 
@@ -17,8 +18,9 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     const int damage = 0;
     const int fireRate = 0;
     const uint64_t lastShotTime = 0;
+    bool isActive = false;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -30,6 +32,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
         SDL_FLIP_NONE,           // Texture flip
         textureLoader.getTexture("assets/base.png")
     );
+    reg.emplace<Allied>(e, false);
     reg.emplace<Base>(e);
 
     return e;
@@ -46,8 +49,9 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int damage = 10;
     const int fireRate = 10;
     const uint64_t lastShotTime = 0;
+    bool isActive = false;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     const Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -57,8 +61,9 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
         RectD{x, y, 64.0, 64.0}, // Displayed sprite rect
         0.0,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("assets/machine_gun.png")
+        textureLoader.getTexture("assets/allied_infantry.png")
     );
+    reg.emplace<Allied>(e, false);
     const Vec2i spriteCenter = sprite.texture->getCenter();
     reg.emplace<Circle>(e, Color{255, 255, 255, 255}, x + spriteCenter.x, y + spriteCenter.y, range, false);
 
@@ -76,8 +81,9 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
     const int damage = 10;
     const int fireRate = 10;
     const uint64_t lastShotTime = 0;
+    bool isActive = true;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime);
+    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden

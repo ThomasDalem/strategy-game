@@ -43,9 +43,13 @@ void MainLoop::loop()
         int mouseY = 0;
         SDL_GetMouseState(&mouseX, &mouseY);
 
+        dragUnits(reg);
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 _quit = true;
+            }
+            if (e.type == SDL_KEYDOWN) {
+                handleInputs(reg, texturesLoader, e);
             }
         }
 
