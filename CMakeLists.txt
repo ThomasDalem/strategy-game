@@ -57,7 +57,6 @@ set(HEADERS
     src/components/Collider.hpp
     src/components/Rectangle.hpp
     src/components/Circle.hpp
-    src/components/game/UnitInfo.hpp
     src/components/game/Unit.hpp
     src/components/game/Allied.hpp
     src/components/game/Enemy.hpp

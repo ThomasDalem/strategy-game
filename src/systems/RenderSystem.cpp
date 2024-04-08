@@ -35,7 +35,9 @@ void drawCircles(entt::registry &reg, SDL::Renderer &renderer)
 {
     auto view = reg.view<Circle>();
     view.each([&](Circle &circle){
-        renderer.drawCircle(circle.x, circle.y, circle.radius, circle.color);
+        if (circle.hidden == false) {
+            renderer.drawCircle(circle.x, circle.y, circle.radius, circle.color);
+        }
     });
 }
 

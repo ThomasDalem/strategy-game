@@ -4,7 +4,7 @@
 #include "components/Circle.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/game/Allied.hpp"
-#include "components/game/UnitInfo.hpp"
+#include "components/game/Unit.hpp"
 #include "components/tags/Base.hpp"
 
 entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double x, double y)
@@ -20,7 +20,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     const uint64_t lastShotTime = 0;
     bool isActive = false;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
+    reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -51,7 +51,7 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const uint64_t lastShotTime = 0;
     bool isActive = false;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
+    reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     const Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -83,7 +83,7 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
     const uint64_t lastShotTime = 0;
     bool isActive = true;
 
-    reg.emplace<UnitInfo>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
+    reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
     reg.emplace<Sprite>(
         e,
         false,                   // Hidden

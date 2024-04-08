@@ -1,5 +1,5 @@
-#ifndef UNIT_HPP
-#define UNIT_HPP
+#ifndef UNIT_INFO_HPP
+#define UNIT_INFO_HPP
 
 enum UnitType
 {
@@ -9,4 +9,16 @@ enum UnitType
     BASE
 };
 
-#endif // UNIT_HPP
+struct Unit
+{
+    UnitType type;
+    int health;
+    int ammo;
+    int range;
+    int damage;
+    int firerate;
+    uint64_t lastShotTime;
+    bool isActive;
+};
+
+#endif // UNIT_INFO_HPP

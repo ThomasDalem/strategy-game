@@ -48,9 +48,7 @@ void MainLoop::loop()
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
-            if (e.type == SDL_KEYDOWN) {
-                handleInputs(reg, texturesLoader, e);
-            }
+            handleInputs(reg, texturesLoader, e);
         }
 
         _app.getRenderer().setDrawColor(50, 50, 50, 0);
