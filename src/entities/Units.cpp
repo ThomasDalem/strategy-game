@@ -21,7 +21,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     bool isActive = false;
 
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
-    reg.emplace<Sprite>(
+    Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
         Vec2d{x, y},             // Pos on screen
@@ -32,6 +32,8 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
         SDL_FLIP_NONE,           // Texture flip
         textureLoader.getTexture("assets/base.png")
     );
+    const Vec2i &center = sprite.texture->getCenter();
+    sprite.pos -= center;
     reg.emplace<Allied>(e, false);
     reg.emplace<Base>(e);
 
@@ -95,7 +97,7 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
         SDL_FLIP_NONE,           // Texture flip
         textureLoader.getTexture("assets/infantry.png")
     );
-    reg.emplace<Movement>(e, Vec2d{0.0, 0.0}, 1.0, false);
+    reg.emplace<Movement>(e, Vec2d{0.0, 0.0}, 0.5, false);
     reg.emplace<Enemy>(e, UnitType::INFANTRY, 100);
 
     return e;

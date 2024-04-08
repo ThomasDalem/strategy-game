@@ -17,7 +17,7 @@ struct Vec2 {
 
     Vec2<T> operator+(const Vec2<T> &other) const { return { x + other.x, y + other.y }; }
     Vec2<T> operator-(const Vec2<T> &other) const { return { x - other.x, y - other.y }; };
-    Vec2<T> operator*(int m) const { return { x * m, y * m }; };
+    Vec2<T> operator*(T m) const { return { x * m, y * m }; };
 
     Vec2<T> &operator+=(const Vec2<T> &other)
     {
@@ -31,7 +31,7 @@ struct Vec2 {
         y -= other.y;
         return *this;
     }
-    Vec2<T> &operator*=(int m)
+    Vec2<T> &operator*=(T m)
     {
         x *= m;
         y *= m;

@@ -27,9 +27,10 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    makeAlliedInfantry(reg, texturesLoader, 500.0, 400.0);
-    makeEnemyInfantry(reg, texturesLoader, 800.0, 600.0);
-    makeBase(reg, texturesLoader, 500.0, 100.0);
+    const uint16_t screenCenterX = _app.getScreenWidth() / 2;
+    const uint16_t screenCenterY = _app.getScreenHeight() / 2;
+    makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
+    makeEnemyInfantry(reg, texturesLoader, 1000.0, 800.0);
 
     Timer frameTimer;
     Timer gameTimer;
