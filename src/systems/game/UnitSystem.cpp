@@ -6,6 +6,7 @@
 #include "components/Circle.hpp"
 #include "entities/Units.hpp"
 #include "utils/TransformUtils.hpp"
+#include <iostream>
 
 void shootEnemies(entt::registry &reg, uint64_t gameTime)
 {
@@ -68,16 +69,40 @@ void deployUnit(entt::registry &reg)
 
     SDL_GetMouseState(&x, &y);
 
-    const auto units = reg.view<Unit, Allied, Circle>();
+    const auto view = reg.view<Unit, Allied, Circle>();
 
-    for (entt::entity unit : units) {
-        Allied &allied = reg.get<Allied>(unit);
-        Circle &circle = reg.get<Circle>(unit);
+    for (entt::entity e : view) {
+        Allied &allied = reg.get<Allied>(e);
+        Circle &circle = reg.get<Circle>(e);
+        Unit &unit = reg.get<Unit>(e);
 
         if (allied.isDragged) {
             allied.isDragged = false;
             circle.hidden = true;
+            unit.isActive = true;
         }
+    }
+}
+
+void drawHealth(entt::registry &reg, SDL::Renderer &renderer)
+{
+    const auto view = reg.view<Unit, Sprite>();
+
+    for (entt::entity e : view) {
+        const Sprite &sprite = reg.get<Sprite>(e);
+        const Unit &unit = reg.get<Unit>(e);
+
+        const RectI rect {
+            static_cast<int>(sprite.pos.x),
+            static_cast<int>(sprite.pos.y + sprite.rect.height + 5),
+            static_cast<int>(sprite.rect.width * (static_cast<double>(unit.health) / 100)),
+            10
+        };
+
+        std::cout << 255 - 255 / (static_cast<double>(unit.health) / 100) << std::endl;
+        uint8_t red = 255 - 255 / (static_cast<double>(unit.health) / 100);
+        uint8_t green = 255 * (static_cast<double>(unit.health) / 100);
+        renderer.drawRect(rect, red, green, 0, 255);
     }
 }
 

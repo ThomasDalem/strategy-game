@@ -59,6 +59,7 @@ void MainLoop::loop()
         shootEnemies(reg, gameTimer.getDeltaTime());
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, gameTimer.getDeltaTime());
+        drawHealth(reg, _app.getRenderer());
         updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();
