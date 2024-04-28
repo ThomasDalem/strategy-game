@@ -99,9 +99,8 @@ void drawHealth(entt::registry &reg, SDL::Renderer &renderer)
             10
         };
 
-        //std::cout << 255 - 255 / (static_cast<double>(unit.health) / 100) << std::endl;
-        uint8_t red = 255 - 255 / (static_cast<double>(unit.health) / 100);
         uint8_t green = 255 * (static_cast<double>(unit.health) / 100);
+        uint8_t red = 255 - green;
         renderer.drawRect(rect, red, green, 0, 255);
     }
 }

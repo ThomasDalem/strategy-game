@@ -1,7 +1,7 @@
 #ifndef APP_HPP
 #define APP_HPP
 
-#include <SDL2/SDL_Video.h>
+#include <SDL2/SDL_video.h>
 #include "Renderer.hpp"
 
 namespace SDL {

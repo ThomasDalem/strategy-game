@@ -92,13 +92,14 @@ if (WIN32)
     set(SDL2_image_DIR "C:/Users/Thomas/vcpkg/packages/sdl2-image_x64-windows/share/SDL2_image")
 endif ()
 
-find_package(SDL2_image CONFIG REQUIRED)
 
 if (WIN32)
     find_package(sdl2 CONFIG REQUIRED)
+    find_package(SDL2_image CONFIG REQUIRED)
     find_package(sdl2-gfx CONFIG REQUIRED)
 else ()
     find_package(SDL2 REQUIRED)
+    find_package(SDL2_image REQUIRED)
     find_package(SDL2_gfx REQUIRED)
 endif ()
 
@@ -114,4 +115,8 @@ target_include_directories(game
     PUBLIC ${SDL2_GFX_INCLUDE_DIRS}
 )
 
-target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2_image::SDL2_image SDL2::SDL2_gfx)
+if (WIN32)
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx)
+else ()
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES})
+endif ()

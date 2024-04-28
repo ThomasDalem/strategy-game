@@ -1,10 +1,5 @@
 #include <iostream>
-
-#if defined(WIN32) || defined (_WIN32)
-    #include <SDL_image.h>
-#else
-    #include "SDL2/SDL_image.h"
-#endif
+#include <SDL_image.h>
 
 #include "App.hpp"
 

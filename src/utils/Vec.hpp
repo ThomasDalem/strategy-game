@@ -9,11 +9,11 @@ struct Vec2 {
     T x;
     T y;
 
-    Vec2<T>() = default;
-    Vec2<T>(T aX, T aY): x(aX), y(aY) {}
+    Vec2() = default;
+    Vec2(T aX, T aY): x(aX), y(aY) {}
 
     template<typename U>
-    Vec2<T>(const Vec2<U> &other): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
+    Vec2(const Vec2<U> &other): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
 
     Vec2<T> operator+(const Vec2<T> &other) const { return { x + other.x, y + other.y }; }
     Vec2<T> operator-(const Vec2<T> &other) const { return { x - other.x, y - other.y }; };

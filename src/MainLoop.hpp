@@ -1,12 +1,6 @@
 #ifndef MAINLOOP_HPP
 #define MAINLOOP_HPP
 
-#if defined(WIN32) || defined (_WIN32)
-    #include "SDL_image.h"
-#else
-    #include "SDL2/SDL_image.h"
-#endif
-
 #include "SDL/App.hpp"
 
 class MainLoop
