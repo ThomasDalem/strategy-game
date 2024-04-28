@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.7)
 
 project(game)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED On)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 set(SRCS
@@ -78,11 +81,37 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic -g)
 endif()
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_gfx REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_GFX_INCLUDE_DIRS})
+if (WIN32)
+    set(PNG_LIBRARY "C:/Users/Thomas/vcpkg/packages/libpng_x64-windows/lib")
+    set(PNG_PNG_INCLUDE_DIR "C:/Users/Thomas/vcpkg/packages/libpng_x64-windows/include")
+    set(ZLIB_LIBRARY "C:/Users/Thomas/vcpkg/packages/zlib_x64-windows/lib")
+    set(ZLIB_INCLUDE_DIR "C:/Users/Thomas/vcpkg/packages/zlib_x64-windows/include")
+endif ()
+
+if (WIN32)
+    set(SDL2_image_DIR "C:/Users/Thomas/vcpkg/packages/sdl2-image_x64-windows/share/SDL2_image")
+endif ()
+
+find_package(SDL2_image CONFIG REQUIRED)
+
+if (WIN32)
+    find_package(sdl2 CONFIG REQUIRED)
+    find_package(sdl2-gfx CONFIG REQUIRED)
+else ()
+    find_package(SDL2 REQUIRED)
+    find_package(SDL2_gfx REQUIRED)
+endif ()
+
+include_directories()
 
 add_executable(game ${SRCS} ${HEADERS})
-target_include_directories(game PRIVATE "src/" "include/")
-target_link_libraries(game ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES})
+
+target_include_directories(game
+    PUBLIC "src/"
+    PUBLIC "include/"
+    PUBLIC ${SDL2_INCLUDE_DIRS}
+    PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
+    PUBLIC ${SDL2_GFX_INCLUDE_DIRS}
+)
+
+target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2_image::SDL2_image SDL2::SDL2_gfx)

@@ -1,7 +1,8 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_video.h>
+#include <SDL2/SDL_render.h>
 #include "Texture.hpp"
 #include "utils/Vec.hpp"
 #include "utils/Rect.hpp"

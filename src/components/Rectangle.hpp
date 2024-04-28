@@ -1,8 +1,8 @@
 #ifndef RECTANGLE_HPP
 #define RECTANGLE_HPP
 
+#include <SDL2/SDL_pixels.h>
 #include "utils/Rect.hpp"
-#include <SDL2/SDL.h>
 
 struct Rectangle {
     RectI rect;

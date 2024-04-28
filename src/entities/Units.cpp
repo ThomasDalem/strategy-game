@@ -30,7 +30,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
         RectD{x, y, 61.0, 44.0}, // Displayed sprite rect
         0.0,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("assets/base.png")
+        textureLoader.getTexture("../assets/base.png")
     );
     const Vec2i &center = sprite.texture->getCenter();
     sprite.pos -= center;
@@ -63,7 +63,7 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
         RectD{x, y, 64.0, 64.0}, // Displayed sprite rect
         0.0,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("assets/allied_infantry.png")
+        textureLoader.getTexture("../assets/allied_infantry.png")
     );
     reg.emplace<Allied>(e, false);
     const Vec2i spriteCenter = sprite.texture->getCenter();
@@ -95,7 +95,7 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
         RectD{x, y, 61.0, 61.0}, // Displayed sprite rect
         0.0,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("assets/infantry.png")
+        textureLoader.getTexture("../assets/infantry.png")
     );
     reg.emplace<Movement>(e, Vec2d{0.0, 0.0}, 0.5, false);
     reg.emplace<Enemy>(e, UnitType::INFANTRY, 100);

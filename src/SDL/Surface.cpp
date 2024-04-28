@@ -1,10 +1,16 @@
-#include "Surface.hpp"
-#include "iostream"
+#include <iostream>
+
+#if defined(WIN32) || defined (_WIN32)
+#include <SDL_image.h>
+#else
 #include "SDL2/SDL_image.h"
+#endif
+
+#include "Surface.hpp"
 
 using namespace SDL;
 
-Surface::Surface(const std::string &filepath, SDL_Surface *winSurface) : _isLoaded(false)
+Surface::Surface(const std::string &filepath, SDL_Surface *winSurface) : _isLoaded(false), _surface(nullptr)
 {
     if (filepath.empty()) {
         return;

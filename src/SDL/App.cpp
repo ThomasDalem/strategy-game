@@ -1,5 +1,11 @@
 #include <iostream>
-#include <SDL2/SDL_image.h>
+
+#if defined(WIN32) || defined (_WIN32)
+    #include <SDL_image.h>
+#else
+    #include "SDL2/SDL_image.h"
+#endif
+
 #include "App.hpp"
 
 using namespace SDL;
