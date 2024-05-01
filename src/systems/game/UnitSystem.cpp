@@ -6,9 +6,8 @@
 #include "components/Circle.hpp"
 #include "entities/Units.hpp"
 #include "utils/TransformUtils.hpp"
-#include <iostream>
 
-void shootEnemies(entt::registry &reg, uint64_t gameTime)
+void shootEnemies(entt::registry &reg, float gameTime)
 {
     const auto unitsView = reg.view<Unit>(entt::exclude<Enemy>);
     const auto enemiesView = reg.view<Enemy>();
@@ -24,9 +23,9 @@ void shootEnemies(entt::registry &reg, uint64_t gameTime)
         for (entt::entity enemy : enemiesView) {
             const Sprite &enemySprite = reg.get<Sprite>(enemy);
             Unit &enemyInfos = reg.get<Unit>(enemy);
-            const uint64_t lastShot = gameTime - infos.lastShotTime;
+            const float lastShot = gameTime - infos.lastShotTime;
 
-            if (lastShot > 1000.0 / infos.firerate && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
+            if (lastShot > infos.firerate / 100.0 && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
                 enemyInfos.health -= infos.damage;
                 infos.lastShotTime = gameTime;
             }
@@ -99,8 +98,8 @@ void drawHealth(entt::registry &reg, SDL::Renderer &renderer)
             10
         };
 
-        uint8_t green = 255 * (static_cast<double>(unit.health) / 100);
-        uint8_t red = 255 - green;
+        const uint8_t green = 255 * (static_cast<double>(unit.health) / 100);
+        const uint8_t red = 255 - green;
         renderer.drawRect(rect, red, green, 0, 255);
     }
 }

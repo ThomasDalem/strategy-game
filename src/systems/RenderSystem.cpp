@@ -3,6 +3,9 @@
 #include "components/Collider.hpp"
 #include "components/Rectangle.hpp"
 #include "components/Circle.hpp"
+#include "components/Line.hpp"
+
+#include <iostream>
 
 void drawCollider(Collider &collider, SDL::Renderer &renderer)
 {
@@ -37,6 +40,16 @@ void drawCircles(entt::registry &reg, SDL::Renderer &renderer)
     view.each([&](Circle &circle){
         if (circle.hidden == false) {
             renderer.drawCircle(circle.x, circle.y, circle.radius, circle.color);
+        }
+    });
+}
+
+void drawLines(entt::registry &reg, SDL::Renderer &renderer)
+{
+    auto view = reg.view<Line>();
+    view.each([&](Line &line){
+        if (line.hidden == false) {
+            renderer.drawLine(line.a, line.b);
         }
     });
 }
@@ -82,6 +95,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
     };
     view.each(f);
     drawCircles(reg, renderer);
+    drawLines(reg, renderer);
     if (debug) {
         drawColliders(reg, renderer);
     }

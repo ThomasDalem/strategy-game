@@ -17,7 +17,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double
     const int range = 0;
     const int damage = 0;
     const int fireRate = 0;
-    const uint64_t lastShotTime = 0;
+    const float lastShotTime = 0.f;
     bool isActive = false;
 
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
@@ -48,9 +48,9 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int health = 100;
     const int ammo = 500;
     const int range = 200;
-    const int damage = 10;
+    const int damage = 1;
     const int fireRate = 10;
-    const uint64_t lastShotTime = 0;
+    const float lastShotTime = 0.f;
     bool isActive = false;
 
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
@@ -82,7 +82,7 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
     const int range = 200;
     const int damage = 10;
     const int fireRate = 10;
-    const uint64_t lastShotTime = 0;
+    const float lastShotTime = 0.f;
     bool isActive = true;
 
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, lastShotTime, isActive);
@@ -97,7 +97,7 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
         SDL_FLIP_NONE,           // Texture flip
         textureLoader.getTexture("../assets/infantry.png")
     );
-    reg.emplace<Movement>(e, Vec2d{0.0, 0.0}, 0.5, false);
+    reg.emplace<Movement>(e, Vec2d{0.0, 0.0}, 20.0, false);
     reg.emplace<Enemy>(e, UnitType::INFANTRY, 100);
 
     return e;

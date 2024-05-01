@@ -25,12 +25,14 @@ set(SRCS
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
     src/entities/Units.cpp
+    src/entities/Bullet.cpp
     src/systems/RenderSystem.cpp
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
     src/systems/CollisionSystem.cpp
     src/systems/game/EnemySystem.cpp
     src/systems/game/UnitSystem.cpp
+    src/systems/game/BulletSystem.cpp
 )
 
 set(HEADERS
@@ -60,17 +62,21 @@ set(HEADERS
     src/components/Collider.hpp
     src/components/Rectangle.hpp
     src/components/Circle.hpp
+    src/components/Line.hpp
     src/components/game/Unit.hpp
     src/components/game/Allied.hpp
     src/components/game/Enemy.hpp
+    src/components/game/BulletInfo.hpp
     src/components/tags/Base.hpp
     src/entities/Units.hpp
+    src/entities/Bullet.hpp
     src/systems/RenderSystem.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
     src/systems/CollisionSystem.hpp
     src/systems/game/EnemySystem.hpp
     src/systems/game/UnitSystem.hpp
+    src/systems/game/BulletSystem.hpp
 )
 
 if (MSVC)

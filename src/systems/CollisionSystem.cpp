@@ -115,11 +115,6 @@ void moveSprite(const Vec2d &length, entt::registry &reg, entt::entity e)
     sprite->rect.y += length.y;
 }
 
-Vec2d testSub(const Vec2d &a, const Vec2d &b)
-{
-    return {a.x - b.x, a.y - b.y};
-}
-
 void handleCollisions(entt::registry &reg)
 {
     auto view = reg.view<Collider>();

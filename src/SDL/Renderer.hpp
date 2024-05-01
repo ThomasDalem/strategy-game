@@ -41,6 +41,7 @@ namespace SDL {
 
             void drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
             void drawCircle(int x, int y, int radius, const Color &color);
+            void drawLine(const Vec2d &a, const Vec2d &b);
 
             void present();
 

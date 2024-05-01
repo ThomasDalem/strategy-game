@@ -1,7 +1,7 @@
 #ifndef TIMER_HPP
 #define TIMER_HPP
 
-#include <cstdint>
+#include <chrono>
 
 class Timer {
 public:
@@ -9,10 +9,11 @@ public:
     ~Timer();
 
     void start();
-    uint64_t getDeltaTime() const;
+    // Get elapsed time in seconds
+    float getDeltaTime() const;
 
 private:
-    uint64_t _begin;
+    std::chrono::steady_clock::time_point _begin;
 };
 
 #endif // TIMER_HPP

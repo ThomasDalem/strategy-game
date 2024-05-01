@@ -8,8 +8,12 @@
 #include "systems/MovementSystem.hpp"
 #include "systems/game/EnemySystem.hpp"
 #include "systems/game/UnitSystem.hpp"
+#include "systems/game/BulletSystem.hpp"
 
+#include "entities/Bullet.hpp"
 #include "entities/Units.hpp"
+
+#include <iostream>
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -32,14 +36,14 @@ void MainLoop::loop()
     makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
     makeEnemyInfantry(reg, texturesLoader, 1000.0, 800.0);
 
-    Timer frameTimer;
+    makeBullet(reg, {100, 100}, {500, 500}, 100);
+
+    Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
 
     gameTimer.start();
 
     while (!_quit) {
-        frameTimer.start();
-
         int mouseX = 0;
         int mouseY = 0;
         SDL_GetMouseState(&mouseX, &mouseY);
@@ -57,9 +61,11 @@ void MainLoop::loop()
 
         enemySystem(reg);
         shootEnemies(reg, gameTimer.getDeltaTime());
-        moveSprites(reg, frameTimer.getDeltaTime());
-        animateSprites(reg, gameTimer.getDeltaTime());
         drawHealth(reg, _app.getRenderer());
+        moveSprites(reg, frameTimer.getDeltaTime());
+        bulletSystem(reg, frameTimer.getDeltaTime());
+
+        frameTimer.start();
         updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();

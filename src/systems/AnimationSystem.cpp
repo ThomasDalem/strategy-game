@@ -3,7 +3,7 @@
 #include "components/Sprite.hpp"
 #include <iostream>
 
-void animateSprites(entt::registry &reg, uint64_t time)
+void animateSprites(entt::registry &reg, float time)
 {
     auto view = reg.view<Animation, Sprite>();
 

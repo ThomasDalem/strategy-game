@@ -17,7 +17,7 @@ struct Unit
     int range;
     int damage;
     int firerate;
-    uint64_t lastShotTime;
+    float lastShotTime;
     bool isActive;
 };
 

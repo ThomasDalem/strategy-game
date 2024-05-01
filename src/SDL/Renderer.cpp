@@ -11,14 +11,7 @@ Renderer::Renderer() : _renderer(NULL)
 
 Renderer::Renderer(SDL_Window *window)
 {
-    _renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    setDrawBlendMode(SDL_BLENDMODE_BLEND);
-    
-    if (_renderer == NULL)
-    {
-        std::cout << "Error while creating renderer : " <<  SDL_GetError() << std::endl;
-        throw "Renderer error";
-    };
+    initRenderer(window);
 }
 
 Renderer::~Renderer()
@@ -36,6 +29,7 @@ SDL_Renderer *Renderer::getRenderer()
 void Renderer::initRenderer(SDL_Window *window)
 {
     _renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    setDrawBlendMode(SDL_BLENDMODE_BLEND);
     
     if (_renderer == NULL)
     {
@@ -94,12 +88,17 @@ void Renderer::drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint
     };
     setDrawColor(r, g, b, a);
     SDL_RenderFillRect(_renderer, &sdlRect);
-    setDrawColor(255, 255, 255, 0);
+    setDrawColor(255, 255, 255, 255);
 }
 
 void Renderer::drawCircle(int x, int y, int radius, const Color &color)
 {
     circleRGBA(_renderer, x, y, radius, color.r, color.g, color.b, color.a);
+}
+
+void Renderer::drawLine(const Vec2d &a, const Vec2d &b)
+{
+    SDL_RenderDrawLine(_renderer, a.x, a.y, b.x, b.y);
 }
 
 void Renderer::present()

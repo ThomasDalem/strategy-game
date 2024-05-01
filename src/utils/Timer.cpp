@@ -1,7 +1,6 @@
-#include <SDL2/SDL.h>
 #include "Timer.hpp"
 
-Timer::Timer()
+Timer::Timer(): _begin(std::chrono::steady_clock::now())
 {
 }
 
@@ -11,10 +10,11 @@ Timer::~Timer()
 
 void Timer::start()
 {
-    _begin = SDL_GetTicks64();
+    _begin = std::chrono::steady_clock::now();
 }
 
-uint64_t Timer::getDeltaTime() const
+float Timer::getDeltaTime() const
 {
-    return SDL_GetTicks64() - _begin;
+    const std::chrono::duration<float> fs = std::chrono::steady_clock::now() - _begin;
+    return fs.count();
 }
