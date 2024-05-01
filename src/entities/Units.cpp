@@ -48,7 +48,7 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int health = 100;
     const int ammo = 500;
     const int range = 200;
-    const int damage = 1;
+    const int damage = 10;
     const int fireRate = 10;
     const float lastShotTime = 0.f;
     bool isActive = false;

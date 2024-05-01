@@ -1,11 +1,12 @@
 #include "UnitSystem.hpp"
+#include "utils/TransformUtils.hpp"
 #include "components/Sprite.hpp"
 #include "components/game/Unit.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/game/Allied.hpp"
 #include "components/Circle.hpp"
 #include "entities/Units.hpp"
-#include "utils/TransformUtils.hpp"
+#include "entities/Bullet.hpp"
 
 void shootEnemies(entt::registry &reg, float gameTime)
 {
@@ -25,7 +26,11 @@ void shootEnemies(entt::registry &reg, float gameTime)
             Unit &enemyInfos = reg.get<Unit>(enemy);
             const float lastShot = gameTime - infos.lastShotTime;
 
-            if (lastShot > infos.firerate / 100.0 && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
+            if (lastShot > infos.firerate / 10.0 && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
+                const Vec2d unitCenter = unitSprite.pos + unitSprite.texture->getCenter();
+                const Vec2d enemyCenter = enemySprite.pos + enemySprite.texture->getCenter();
+                makeBullet(reg, unitCenter, enemyCenter, 250);
+
                 enemyInfos.health -= infos.damage;
                 infos.lastShotTime = gameTime;
             }

@@ -10,7 +10,6 @@
 #include "systems/game/UnitSystem.hpp"
 #include "systems/game/BulletSystem.hpp"
 
-#include "entities/Bullet.hpp"
 #include "entities/Units.hpp"
 
 #include <iostream>
@@ -35,8 +34,6 @@ void MainLoop::loop()
     const uint16_t screenCenterY = _app.getScreenHeight() / 2;
     makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
     makeEnemyInfantry(reg, texturesLoader, 1000.0, 800.0);
-
-    makeBullet(reg, {100, 100}, {500, 500}, 100);
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
