@@ -29,7 +29,8 @@ void shootEnemies(entt::registry &reg, float gameTime)
             if (lastShot > infos.firerate / 10.0 && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
                 const Vec2d unitCenter = unitSprite.pos + unitSprite.texture->getCenter();
                 const Vec2d enemyCenter = enemySprite.pos + enemySprite.texture->getCenter();
-                makeBullet(reg, unitCenter, enemyCenter, 250);
+                const int bulletSpeed = 350;
+                makeBullet(reg, unitCenter, enemyCenter, bulletSpeed);
 
                 enemyInfos.health -= infos.damage;
                 infos.lastShotTime = gameTime;

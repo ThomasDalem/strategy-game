@@ -28,6 +28,7 @@ SDL_Renderer *Renderer::getRenderer()
 
 void Renderer::initRenderer(SDL_Window *window)
 {
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     _renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     setDrawBlendMode(SDL_BLENDMODE_BLEND);
     

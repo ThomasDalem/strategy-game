@@ -1,9 +1,15 @@
 #include "EnemySystem.hpp"
+
 #include "components/tags/Base.hpp"
 #include "components/Movement.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/Sprite.hpp"
 #include "components/game/Unit.hpp"
+
+#include "entities/Units.hpp"
+
+#include "utils/Timer.hpp"
+
 #include <iostream>
 
 void moveEnemies(entt::registry &reg)
@@ -37,9 +43,19 @@ void checkEnemyHealth(entt::registry &reg)
 
         if (infos.health <= 0) {
             reg.destroy(e);
-            std::cout << "Destroyed entity\n";
             continue;
         }
+    }
+}
+
+void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float deltaTime)
+{
+    static const float spawnRate = 5.f; // in seconds
+    static float lastSpawnTime = 0.f;
+
+    if (deltaTime - lastSpawnTime > spawnRate) {
+        makeEnemyInfantry(reg, textureLoader, 100, 100);
+        lastSpawnTime = deltaTime;
     }
 }
 

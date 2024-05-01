@@ -57,12 +57,13 @@ void MainLoop::loop()
         _app.getRenderer().clear();
 
         enemySystem(reg);
+        spawnEnemies(reg, texturesLoader, gameTimer.getDeltaTime());
         shootEnemies(reg, gameTimer.getDeltaTime());
-        drawHealth(reg, _app.getRenderer());
         moveSprites(reg, frameTimer.getDeltaTime());
         bulletSystem(reg, frameTimer.getDeltaTime());
 
         frameTimer.start();
+        drawHealth(reg, _app.getRenderer());
         updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();
