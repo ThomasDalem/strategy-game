@@ -1,41 +1,80 @@
 #include "UnitSystem.hpp"
+
+#include <limits>
+
 #include "utils/TransformUtils.hpp"
+
 #include "components/Sprite.hpp"
 #include "components/game/Unit.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/game/Allied.hpp"
 #include "components/Circle.hpp"
+
 #include "entities/Units.hpp"
 #include "entities/Bullet.hpp"
 
-void shootEnemies(entt::registry &reg, float gameTime)
+entt::entity findTarget(entt::registry &reg, entt::entity unit, auto &enemiesView)
+{
+    const Sprite &unitSprite = reg.get<Sprite>(unit);
+    Unit &infos = reg.get<Unit>(unit);
+
+    if (reg.valid(infos.target)) {
+        return infos.target;
+    }
+
+    entt::entity closestEnemy = entt::null;
+    double closestEnemyDistance = std::numeric_limits<double>::max();
+
+    for (entt::entity enemy : enemiesView) {
+        const Sprite &enemySprite = reg.get<Sprite>(enemy);
+        const double distance = getDistance(unitSprite.pos, enemySprite.pos);
+
+        if (distance < infos.range && distance < closestEnemyDistance) {
+            closestEnemy = enemy;
+            closestEnemyDistance = distance;
+        }
+    }
+
+    return closestEnemy;
+}
+
+void engageTarget(entt::registry &reg, float gameTime, entt::entity unit, entt::entity enemy)
+{
+    Unit &infos = reg.get<Unit>(unit);
+
+    if (infos.target == entt::null || reg.valid(infos.target) == false) {
+        return;
+    }
+
+    const float lastShot = gameTime - infos.lastShotTime;
+    const Sprite &unitSprite = reg.get<Sprite>(unit);
+    const Sprite &enemySprite = reg.get<Sprite>(enemy);
+    Unit &enemyInfos = reg.get<Unit>(enemy);
+
+    if (lastShot > infos.firerate / 10.f && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
+        const Vec2d unitCenter = unitSprite.pos + unitSprite.texture->getCenter();
+        const Vec2d enemyCenter = enemySprite.pos + enemySprite.texture->getCenter();
+        const int bulletSpeed = 600;
+        makeBullet(reg, unitCenter, enemyCenter, bulletSpeed);
+
+        enemyInfos.health -= infos.damage;
+        infos.lastShotTime = gameTime;
+    }
+}
+
+void makeEngagements(entt::registry &reg, float gameTime)
 {
     const auto unitsView = reg.view<Unit>(entt::exclude<Enemy>);
     const auto enemiesView = reg.view<Enemy>();
 
     for (entt::entity unit : unitsView) {
-        const Sprite &unitSprite = reg.get<Sprite>(unit);
         Unit &infos = reg.get<Unit>(unit);
 
         if (infos.isActive == false) {
             continue;
         }
-
-        for (entt::entity enemy : enemiesView) {
-            const Sprite &enemySprite = reg.get<Sprite>(enemy);
-            Unit &enemyInfos = reg.get<Unit>(enemy);
-            const float lastShot = gameTime - infos.lastShotTime;
-
-            if (lastShot > infos.firerate / 10.0 && getDistance(unitSprite.pos, enemySprite.pos) < infos.range) {
-                const Vec2d unitCenter = unitSprite.pos + unitSprite.texture->getCenter();
-                const Vec2d enemyCenter = enemySprite.pos + enemySprite.texture->getCenter();
-                const int bulletSpeed = 350;
-                makeBullet(reg, unitCenter, enemyCenter, bulletSpeed);
-
-                enemyInfos.health -= infos.damage;
-                infos.lastShotTime = gameTime;
-            }
-        }
+        infos.target = findTarget(reg, unit, enemiesView);
+        engageTarget(reg, gameTime, unit, infos.target);
     }
 }
 

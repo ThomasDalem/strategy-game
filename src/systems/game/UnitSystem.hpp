@@ -5,7 +5,7 @@
 #include "entt.hpp"
 #include "utils/TexturesLoader.hpp"
 
-void shootEnemies(entt::registry &reg, float gameTime);
+void makeEngagements(entt::registry &reg, float gameTime);
 void dragUnits(entt::registry &reg);
 void deployUnit(entt::registry &reg, TexturesLoader &textureLoader);
 void drawHealth(entt::registry &reg, SDL::Renderer &renderer);
