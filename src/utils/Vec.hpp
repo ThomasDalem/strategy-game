@@ -64,14 +64,20 @@ using Vec2d = Vec2<double>;
 using Vec2f = Vec2<float>;
 
 template<typename T>
-Vec2d normalize(const Vec2<T> &v)
+Vec2<T> normalize(const Vec2<T> &v)
 {
-    const double length = std::sqrt(v.x * v.x + v.y * v.y);
+    const T length = std::sqrt(v.x * v.x + v.y * v.y);
     return {v.x / length, v.y / length};
 }
 
 template<typename T>
-double getDistance(const Vec2<T> &a, const Vec2<T> &b)
+T getDistance(const Vec2<T> &a, const Vec2<T> &b)
+{
+    return std::sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2));
+}
+
+template<typename Ta, typename Tb>
+float getDistance(const Vec2<Ta> &a, const Vec2<Tb> &b)
 {
     return std::sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2));
 }

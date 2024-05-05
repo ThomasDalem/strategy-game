@@ -33,7 +33,7 @@ void MainLoop::loop()
     const uint16_t screenCenterX = _app.getScreenWidth() / 2;
     const uint16_t screenCenterY = _app.getScreenHeight() / 2;
     makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
-    makeEnemyInfantry(reg, texturesLoader, 1000.0, 800.0);
+    makeEnemyInfantry(reg, texturesLoader, 1000.f, 800.f);
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
@@ -59,7 +59,8 @@ void MainLoop::loop()
         enemySystem(reg);
         spawnEnemies(reg, texturesLoader, gameTimer.getDeltaTime());
         makeEngagements(reg, gameTimer.getDeltaTime());
-        moveSprites(reg, frameTimer.getDeltaTime());
+        moveUnits(reg);
+        moveObjects(reg, frameTimer.getDeltaTime());
         bulletSystem(reg, frameTimer.getDeltaTime());
 
         frameTimer.start();

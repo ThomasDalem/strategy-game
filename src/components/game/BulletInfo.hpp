@@ -5,9 +5,9 @@
 
 struct BulletInfo
 {
-    Vec2d from;
-    Vec2d to;
-    double speed;
+    Vec2f from;
+    Vec2f to;
+    float speed;
 };
 
 #endif // BULLET_INFO_HPP

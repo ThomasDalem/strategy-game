@@ -7,49 +7,49 @@
 #include "utils/Rect.hpp"
 #include "utils/TransformUtils.hpp"
 
-Vec2d getPolygonCenter(const std::vector<Vec2d> &vertices)
+Vec2f getPolygonCenter(const std::vector<Vec2f> &vertices)
 {
-    Vec2d center = {0.0, 0.0};
+    Vec2f center = {0.f, 0.f};
 
-    for (const Vec2d &vertex : vertices) {
+    for (const Vec2f &vertex : vertices) {
         center += vertex;
     }
 
     return {center.x / vertices.size(), center.y / vertices.size()};
 }
 
-Vec2d normalize(const Vec2d &v)
+Vec2f normalize(const Vec2f &v)
 {
-    const double length = std::sqrt(v.x * v.x + v.y * v.y);
+    const float length = std::sqrt(v.x * v.x + v.y * v.y);
     return {v.x / length, v.y / length};
 }
 
-std::vector<Vec2d> getAxes(const std::vector<Vec2d> &vertices)
+std::vector<Vec2f> getAxes(const std::vector<Vec2f> &vertices)
 {
-    std::vector<Vec2d> axes; // TODO: check for parallel axes
+    std::vector<Vec2f> axes; // TODO: check for parallel axes
     for (size_t i = 0; i < vertices.size(); i++) {
-        const Vec2d p1 = vertices[i];
+        const Vec2f p1 = vertices[i];
         const int p2Index = i + 1 == vertices.size() ? 0 : i + 1; // Get the first index if we are at the last one
-        const Vec2d p2 = vertices[p2Index];
-        const Vec2d edge = p1 - p2;
-        const Vec2d normal = {-edge.y, edge.x};
+        const Vec2f p2 = vertices[p2Index];
+        const Vec2f edge = p1 - p2;
+        const Vec2f normal = {-edge.y, edge.x};
         axes.push_back(normalize(normal));
     }
     return axes;
 }
 
-double dotProduct(const Vec2d &a, const Vec2d &b)
+float dotProduct(const Vec2f &a, const Vec2f &b)
 {
     return a.x * b.x + a.y * b.y;
 }
 
-Vec2d getProjection(const Vec2d &axe, const std::vector<Vec2d> &vertices)
+Vec2f getProjection(const Vec2f &axe, const std::vector<Vec2f> &vertices)
 {
-    double min = std::numeric_limits<double>::infinity();
-    double max = -std::numeric_limits<double>::infinity();
+    float min = std::numeric_limits<float>::infinity();
+    float max = -std::numeric_limits<float>::infinity();
 
     for (size_t i = 0; i < vertices.size(); i++) {
-        const double p = dotProduct(axe, vertices[i]);
+        const float p = dotProduct(axe, vertices[i]);
         if (p < min) {
             min = p;
         }
@@ -61,32 +61,32 @@ Vec2d getProjection(const Vec2d &axe, const std::vector<Vec2d> &vertices)
     return {min, max};
 }
 
-bool areOverlapping(const Vec2d &a, const Vec2d &b)
+bool areOverlapping(const Vec2f &a, const Vec2f &b)
 {
     return a.x <= b.y && a.y >= b.x;
 }
 
-double getOverlapLength(const Vec2d &a, const Vec2d &b)
+float getOverlapLength(const Vec2f &a, const Vec2f &b)
 {
     return std::abs(std::min(a.y, b.y) - std::max(a.x, b.x));
 }
 
-bool isColliding(const std::vector<Vec2d> &a, const std::vector<Vec2d> &b, Vec2d &mtv)
+bool isColliding(const std::vector<Vec2f> &a, const std::vector<Vec2f> &b, Vec2f &mtv)
 {
-    std::vector<Vec2d> axes = getAxes(a);
-    std::vector<Vec2d> axesB = getAxes(b);
+    std::vector<Vec2f> axes = getAxes(a);
+    std::vector<Vec2f> axesB = getAxes(b);
     axes.insert(axes.end(), axesB.begin(), axesB.end());
-    double minOverlap = std::numeric_limits<double>::infinity();
+    float minOverlap = std::numeric_limits<float>::infinity();
 
-    for (const Vec2d &axis : axes) {
-        Vec2d proj1 = getProjection(axis, a);
-        Vec2d proj2 = getProjection(axis, b);
+    for (const Vec2f &axis : axes) {
+        Vec2f proj1 = getProjection(axis, a);
+        Vec2f proj2 = getProjection(axis, b);
 
         if (areOverlapping(proj1, proj2) == false) {
             return false;
         }
         else {
-            double overlapLength = getOverlapLength(proj1, proj2);
+            const float overlapLength = getOverlapLength(proj1, proj2);
             if (overlapLength < minOverlap) {
                 minOverlap = overlapLength;
                 mtv = axis * minOverlap;
@@ -97,14 +97,14 @@ bool isColliding(const std::vector<Vec2d> &a, const std::vector<Vec2d> &b, Vec2d
     return true;
 }
 
-void moveCollider(std::vector<Vec2d> &vertices, const Vec2d &length)
+void moveCollider(std::vector<Vec2f> &vertices, const Vec2f &length)
 {
-    for (Vec2d &vertex : vertices) {
+    for (Vec2f &vertex : vertices) {
         vertex += length;
     }
 }
 
-void moveSprite(const Vec2d &length, entt::registry &reg, entt::entity e)
+void moveSprite(const Vec2f &length, entt::registry &reg, entt::entity e)
 {
     Sprite *sprite = reg.try_get<Sprite>(e);
     if (sprite == nullptr) {
@@ -127,16 +127,16 @@ void handleCollisions(entt::registry &reg)
                 continue;
             }
             Collider &otherCollider = reg.get<Collider>(other);
-            Vec2d mtv;
+            Vec2f mtv;
 
             if (collider.canMove && isColliding(collider.vertices, otherCollider.vertices, mtv)) {
                 collider.drawColor = {255, 0, 0, 0};
                 otherCollider.drawColor = {255, 0, 0, 0};
 
-                const Vec2d centerA = getPolygonCenter(collider.vertices);
-                const Vec2d centerB = getPolygonCenter(otherCollider.vertices);
+                const Vec2f centerA = getPolygonCenter(collider.vertices);
+                const Vec2f centerB = getPolygonCenter(otherCollider.vertices);
 
-                if (dotProduct(centerA - centerB, mtv) < 0.0) {
+                if (dotProduct(centerA - centerB, mtv) < 0.f) {
                     mtv = {-mtv.x, -mtv.y};
                 }
 

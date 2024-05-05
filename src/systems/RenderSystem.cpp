@@ -10,7 +10,7 @@
 void drawCollider(Collider &collider, SDL::Renderer &renderer)
 {
     std::vector<SDL_FPoint> points;
-    for (const Vec2d &vertex : collider.vertices) {
+    for (const Vec2f &vertex : collider.vertices) {
         SDL_FPoint point {static_cast<float>(vertex.x), static_cast<float>(vertex.y)};
         points.push_back(point);
     }

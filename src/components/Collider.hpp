@@ -7,7 +7,7 @@
 
 struct Collider
 {
-    std::vector<Vec2d> vertices;
+    std::vector<Vec2f> vertices;
     bool display;
     bool canMove = false;
     SDL_Color drawColor {255, 255, 255, 0};

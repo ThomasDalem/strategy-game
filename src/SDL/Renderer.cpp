@@ -60,7 +60,7 @@ int Renderer::copy(Texture &texture, const SDL_Rect *sourceRect, const SDL_Rect 
 }
 
 int Renderer::copyEx(Texture &texture,
-                     double angle,
+                     float angle,
                      const SDL_Rect *srcRect,
                      const SDL_Rect *dstRect,
                      SDL_RendererFlip flip)
@@ -70,7 +70,7 @@ int Renderer::copyEx(Texture &texture,
 
 int Renderer::copyEx(Texture &texture,
                      Vec2i &center,
-                     double angle,
+                     float angle,
                      const SDL_Rect *srcRect,
                      const SDL_Rect *dstRect,
                      SDL_RendererFlip flip)
@@ -97,7 +97,12 @@ void Renderer::drawCircle(int x, int y, int radius, const Color &color)
     circleRGBA(_renderer, x, y, radius, color.r, color.g, color.b, color.a);
 }
 
-void Renderer::drawLine(const Vec2d &a, const Vec2d &b)
+void Renderer::drawFilledCircle(const Vec2f &pos, int16_t radius, const Color &color)
+{
+    filledCircleRGBA(_renderer, pos.x, pos.y, radius, color.r, color.g, color.b, color.a);
+}
+
+void Renderer::drawLine(const Vec2f &a, const Vec2f &b)
 {
     SDL_RenderDrawLine(_renderer, a.x, a.y, b.x, b.y);
 }

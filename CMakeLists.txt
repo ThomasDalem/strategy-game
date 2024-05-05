@@ -67,6 +67,8 @@ set(HEADERS
     src/components/game/Allied.hpp
     src/components/game/Enemy.hpp
     src/components/game/BulletInfo.hpp
+    src/components/game/Waypoint.hpp
+    src/components/game/Selected.hpp
     src/components/tags/Base.hpp
     src/entities/Units.hpp
     src/entities/Bullet.hpp

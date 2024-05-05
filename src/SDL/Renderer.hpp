@@ -26,14 +26,14 @@ namespace SDL {
             int clear();
             int copy(Texture &texture, const SDL_Rect *srcRect = NULL, const SDL_Rect *dstRect = NULL);
             int copyEx(Texture &texture,
-                       double angle = 0.0,
+                       float angle = 0.f,
                        const SDL_Rect *srcRect = NULL,
                        const SDL_Rect *dstRect = NULL,
                        SDL_RendererFlip flip = SDL_FLIP_NONE
             );
             int copyEx(Texture &texture,
                        Vec2i &center,
-                       double angle = 0.0,
+                       float angle = 0.f,
                        const SDL_Rect *srcRect = NULL,
                        const SDL_Rect *dstRect = NULL,
                        SDL_RendererFlip flip = SDL_FLIP_NONE
@@ -41,7 +41,8 @@ namespace SDL {
 
             void drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
             void drawCircle(int x, int y, int radius, const Color &color);
-            void drawLine(const Vec2d &a, const Vec2d &b);
+            void drawFilledCircle(const Vec2f &pos, int16_t radius, const Color &color);
+            void drawLine(const Vec2f &a, const Vec2f &b);
 
             void present();
 

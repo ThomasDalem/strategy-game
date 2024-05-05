@@ -6,14 +6,14 @@
 
 // Buildings
 
-entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, double x, double y);
+entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, float x, float y);
 
 // Allied units
 
-entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoader, double x, double y);
+entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoader, float x, float y);
 
 // Enemy units
 
-entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoader, double x, double y);
+entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoader, float x, float y);
 
 #endif // UNITS_HPP

@@ -10,5 +10,6 @@ void dragUnits(entt::registry &reg);
 void deployUnit(entt::registry &reg, TexturesLoader &textureLoader);
 void drawHealth(entt::registry &reg, SDL::Renderer &renderer);
 void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event &e);
+void moveUnits(entt::registry &reg);
 
 #endif // UNIT_SYSTEM_HPP

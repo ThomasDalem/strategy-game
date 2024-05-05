@@ -1,31 +1,32 @@
 #include "EnemySystem.hpp"
 
-#include "components/tags/Base.hpp"
+#include "utils/Timer.hpp"
+
 #include "components/Movement.hpp"
-#include "components/game/Enemy.hpp"
 #include "components/Sprite.hpp"
+#include "components/Position.hpp"
+#include "components/tags/Base.hpp"
+#include "components/game/Enemy.hpp"
 #include "components/game/Unit.hpp"
 
 #include "entities/Units.hpp"
-
-#include "utils/Timer.hpp"
 
 #include <iostream>
 
 void moveEnemies(entt::registry &reg)
 {
-    auto baseView = reg.view<Base>();
-    auto enemyView = reg.view<Enemy>();
+    const auto baseView = reg.view<Base>();
+    const auto enemyView = reg.view<Enemy>();
 
-    const Sprite &baseSprite = reg.get<Sprite>(baseView[0]);
+    const Position &basePos = reg.get<Position>(baseView.begin()[0]);
 
-    for (entt::entity enemy : enemyView) {
-        const Sprite &enemySprite = reg.get<Sprite>(enemy);
+    for (const entt::entity enemy : enemyView) {
+        const Position &enemyPos = reg.get<Position>(enemy);
         Movement &movement = reg.get<Movement>(enemy);
-        const Vec2d direction = normalize(Vec2d{baseSprite.pos.x - enemySprite.pos.x, baseSprite.pos.y - enemySprite.pos.y});
 
-        movement.direction = direction;
-        if (getDistance(baseSprite.pos, enemySprite.pos) < 100) {
+        movement.direction = normalize(basePos - enemyPos);
+
+        if (getDistance(basePos, enemyPos) < 100.f) {
             movement.move = false;
         }
         else {
@@ -54,7 +55,7 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
     static float lastSpawnTime = 0.f;
 
     if (deltaTime - lastSpawnTime > spawnRate) {
-        makeEnemyInfantry(reg, textureLoader, 100, 100);
+        makeEnemyInfantry(reg, textureLoader, 100.f, 100.f);
         lastSpawnTime = deltaTime;
     }
 }

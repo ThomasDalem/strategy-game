@@ -1,28 +1,36 @@
 #include "TransformUtils.hpp"
 #include "components/Relationship.hpp"
 
-void translateCircle(Circle &circle, const Vec2d &translation)
+void translatePos(Position &pos, const Vec2f &translation)
 {
-    circle.x += translation.x;
-    circle.y += translation.y;
+    pos += translation;
 }
 
-void translateSprite(Sprite &sprite, const Vec2d &translation)
+void translateSprite(Sprite &sprite, const Vec2f &translation)
 {
     sprite.pos += translation;
     sprite.rect.x = sprite.pos.x;
     sprite.rect.y = sprite.pos.y;
 }
 
-void translateCollider(Collider &collider, const Vec2d &translation)
+void translateCircle(Circle &circle, const Vec2f &translation)
 {
-    for (Vec2d &vertex : collider.vertices) {
+    circle.x += translation.x;
+    circle.y += translation.y;
+}
+
+void translateCollider(Collider &collider, const Vec2f &translation)
+{
+    for (Vec2f &vertex : collider.vertices) {
         vertex += translation;
     }
 }
 
-void translate(entt::registry &reg, entt::entity e, const Vec2d &translation, bool moveChildren)
+void translate(entt::registry &reg, entt::entity e, const Vec2f &translation, bool moveChildren)
 {
+    Position &pos = reg.get<Position>(e);
+    translatePos(pos, translation);
+
     Sprite *sprite = reg.try_get<Sprite>(e);
     if (sprite != nullptr) {
         translateSprite(*sprite, translation);
@@ -44,7 +52,7 @@ void translate(entt::registry &reg, entt::entity e, const Vec2d &translation, bo
 
     auto view = reg.view<Parent>();
 
-    for (entt::entity child : view) {
+    for (const entt::entity child : view) {
         const Parent &parent = reg.get<Parent>(child);
         if (parent.parent == e) {
             translate(reg, child, translation, true);
@@ -52,13 +60,13 @@ void translate(entt::registry &reg, entt::entity e, const Vec2d &translation, bo
     }
 }
 
-void setCirclePosition(Circle &circle, const Vec2d &position)
+
+void setPositionPos(Position &pos, const Vec2f &newPosition)
 {
-    circle.x = position.x;
-    circle.y = position.y;
+    pos = newPosition;
 }
 
-void setSpritePosition(Sprite &sprite, const Vec2d &position, bool centerSprite)
+void setSpritePosition(Sprite &sprite, const Vec2f &position, bool centerSprite)
 {
     sprite.pos = position;
     sprite.rect.x = sprite.pos.x;
@@ -71,15 +79,24 @@ void setSpritePosition(Sprite &sprite, const Vec2d &position, bool centerSprite)
     }
 }
 
-void setColliderPosition(Collider &collider, const Vec2d &position)
+void setCirclePosition(Circle &circle, const Vec2f &position)
 {
-    for (Vec2d &vertex : collider.vertices) {
+    circle.x = position.x;
+    circle.y = position.y;
+}
+
+void setColliderPosition(Collider &collider, const Vec2f &position)
+{
+    for (Vec2f &vertex : collider.vertices) {
         vertex = position;
     }
 }
 
-void setPosition(entt::registry &reg, entt::entity e, const Vec2d &position, bool centerSprites, bool moveChildren)
+void setPosition(entt::registry &reg, entt::entity e, const Vec2f &position, bool centerSprites, bool moveChildren)
 {
+    Position &pos = reg.get<Position>(e);
+    setPositionPos(pos, position);
+
     Sprite *sprite = reg.try_get<Sprite>(e);
     if (sprite != nullptr) {
         setSpritePosition(*sprite, position, centerSprites);
@@ -99,9 +116,9 @@ void setPosition(entt::registry &reg, entt::entity e, const Vec2d &position, boo
         return;
     }
 
-    auto view = reg.view<Parent>();
+    const auto view = reg.view<Parent>();
 
-    for (entt::entity child : view) {
+    for (const entt::entity child : view) {
         const Parent &parent = reg.get<Parent>(child);
         if (parent.parent == e) {
             setPosition(reg, child, position, true);

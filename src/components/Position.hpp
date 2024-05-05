@@ -3,8 +3,6 @@
 
 #include "utils/Vec.hpp"
 
-struct Position {
-    Vec2f p;
-};
+using Position = Vec2f;
 
 #endif // POSITION_HPP

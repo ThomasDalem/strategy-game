@@ -5,8 +5,8 @@
 
 struct Line
 {
-    Vec2d a;
-    Vec2d b;
+    Vec2f a;
+    Vec2f b;
     bool hidden;
 };
 

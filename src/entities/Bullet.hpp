@@ -4,6 +4,6 @@
 #include "entt.hpp"
 #include "utils/Vec.hpp"
 
-void makeBullet(entt::registry &reg, const Vec2d &from, const Vec2d &to, double speed);
+void makeBullet(entt::registry &reg, const Vec2f &from, const Vec2f &to, float speed);
 
 #endif // BULLET_HPP

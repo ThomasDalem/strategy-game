@@ -5,8 +5,8 @@
 
 struct Movement
 {
-    Vec2d direction;
-    double speed;
+    Vec2f direction;
+    float speed;
     bool move;
 };
 

@@ -19,6 +19,7 @@ struct Unit
     int range;
     int damage;
     int firerate;
+    int speed;
     float lastShotTime;
     entt::entity target;
     bool isActive;

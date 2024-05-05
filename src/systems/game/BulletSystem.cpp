@@ -7,7 +7,7 @@ void bulletSystem(entt::registry &reg, float deltaTime)
     for (const entt::entity e : view) {
         Line &line = reg.get<Line>(e);
         const BulletInfo &bulletInfo = reg.get<BulletInfo>(e);
-        const Vec2d addPos = normalize(bulletInfo.to - bulletInfo.from) * bulletInfo.speed * deltaTime;
+        const Vec2f addPos = normalize(bulletInfo.to - bulletInfo.from) * bulletInfo.speed * deltaTime;
         const float distA = getDistance(bulletInfo.from, bulletInfo.to);
         const float distB = getDistance(bulletInfo.from, line.b);
         bool hasBulletHit = false;
@@ -21,7 +21,7 @@ void bulletSystem(entt::registry &reg, float deltaTime)
             line.b += addPos;
         }
 
-        if (getDistance(line.a, line.b) > 15.0 || hasBulletHit)
+        if (getDistance(line.a, line.b) > 15.f || hasBulletHit)
         {
             line.a += addPos;
             const float distC = getDistance(bulletInfo.from, line.a);
