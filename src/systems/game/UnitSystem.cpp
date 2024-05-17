@@ -64,20 +64,29 @@ void engageTarget(entt::registry &reg, float gameTime, entt::entity unit, entt::
     }
 }
 
-void makeEngagements(entt::registry &reg, float gameTime)
+void engage(entt::registry &reg, float gameTime, auto &units, auto &enemies)
 {
-    const auto unitsView = reg.view<Unit>(entt::exclude<Enemy>);
-    const auto enemiesView = reg.view<Enemy>();
-
-    for (const entt::entity unit : unitsView) {
+    for (const entt::entity unit : units) {
         Unit &infos = reg.get<Unit>(unit);
 
         if (infos.isActive == false) {
             continue;
         }
-        infos.target = findTarget(reg, unit, enemiesView);
+        infos.target = findTarget(reg, unit, enemies);
         engageTarget(reg, gameTime, unit, infos.target);
     }
+}
+
+void makeEngagements(entt::registry &reg, float gameTime)
+{
+    {
+        const auto unitsView = reg.view<Unit>(entt::exclude<Enemy>);
+        const auto enemiesView = reg.view<Unit, Enemy>();
+        engage(reg, gameTime, unitsView, enemiesView);
+    }
+    const auto unitsView = reg.view<Unit>(entt::exclude<Allied>);
+    const auto enemiesView = reg.view<Unit, Allied>();
+    engage(reg, gameTime, unitsView, enemiesView);
 }
 
 void dragUnits(entt::registry &reg)
