@@ -21,7 +21,7 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, float 
     const int speed = 0;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    bool isActive = false;
+    bool isActive = true;
     
     reg.emplace<Position>(e, x, y);
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);

@@ -30,6 +30,9 @@ entt::entity findTarget(entt::registry &reg, entt::entity unit, auto &enemiesVie
     float closestEnemyDistance = std::numeric_limits<float>::infinity();
 
     for (const entt::entity enemy : enemiesView) {
+        if (reg.get<Unit>(enemy).isActive == false) { // to prevent shooting not placed units
+            continue;
+        }
         const Position &enemyPos = reg.get<Position>(enemy);
         const float distance = getDistance(unitPos, enemyPos);
 
@@ -239,4 +242,13 @@ void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event 
             setUnitWaypoint(reg);
         }
     }
+}
+
+void checkUnitsHealth(entt::registry &reg)
+{
+    reg.view<Unit>().each([&reg](const entt::entity e, Unit &unit){
+        if (unit.health <= 0) {
+            reg.destroy(e);
+        }
+    });
 }

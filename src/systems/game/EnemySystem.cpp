@@ -18,6 +18,10 @@ void moveEnemies(entt::registry &reg)
     const auto baseView = reg.view<Base>();
     const auto enemyView = reg.view<Enemy>();
 
+    if (baseView.size() == 0) {
+        return;
+    }
+
     const Position &basePos = reg.get<Position>(baseView.begin()[0]);
 
     for (const entt::entity enemy : enemyView) {
@@ -35,20 +39,6 @@ void moveEnemies(entt::registry &reg)
     }
 }
 
-void checkEnemyHealth(entt::registry &reg)
-{
-    auto enemies = reg.view<Enemy, Unit>();
-
-    for (entt::entity e : enemies) {
-        const Unit &infos = reg.get<Unit>(e);
-
-        if (infos.health <= 0) {
-            reg.destroy(e);
-            continue;
-        }
-    }
-}
-
 void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float deltaTime)
 {
     static const float spawnRate = 5.f; // in seconds
@@ -62,6 +52,5 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
 
 void enemySystem(entt::registry &reg)
 {
-    checkEnemyHealth(reg);
     moveEnemies(reg);
 }

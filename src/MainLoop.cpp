@@ -59,6 +59,7 @@ void MainLoop::loop()
         enemySystem(reg);
         spawnEnemies(reg, texturesLoader, gameTimer.getDeltaTime());
         makeEngagements(reg, gameTimer.getDeltaTime());
+        checkUnitsHealth(reg);
         moveUnits(reg);
         moveObjects(reg, frameTimer.getDeltaTime());
         bulletSystem(reg, frameTimer.getDeltaTime());
