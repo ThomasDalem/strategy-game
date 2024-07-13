@@ -12,6 +12,8 @@
 
 #include "entities/Units.hpp"
 
+#include "HUD/layers/InGame.hpp"
+
 #include <iostream>
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
@@ -37,6 +39,8 @@ void MainLoop::loop()
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
+
+    HUD::InGame inGameHUD(_app.getRenderer());
 
     gameTimer.start();
 
@@ -67,6 +71,8 @@ void MainLoop::loop()
         frameTimer.start();
         drawHealth(reg, _app.getRenderer());
         updateRenderSystem(reg, _app.getRenderer(), true);
+
+        inGameHUD.draw(_app.getRenderer());
 
         _app.getRenderer().present();
     }

@@ -14,6 +14,9 @@ set(SRCS
     src/HUD/Draggable.cpp
     src/HUD/Image.cpp
     src/HUD/Button.cpp
+    src/HUD/Text.cpp
+    src/HUD/Font.cpp
+    src/HUD/layers/InGame.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -24,6 +27,8 @@ set(SRCS
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
+    src/SDL/Font.cpp
+    src/SDL/Text.cpp
     src/entities/Units.cpp
     src/entities/Bullet.cpp
     src/systems/RenderSystem.cpp
@@ -42,6 +47,9 @@ set(HEADERS
     src/HUD/Draggable.hpp
     src/HUD/Image.hpp
     src/HUD/Button.hpp
+    src/HUD/Text.hpp
+    src/HUD/Font.hpp
+    src/HUD/layers/InGame.cpp
     src/MainLoop.hpp
     src/utils/Vec.hpp
     src/utils/Rect.hpp
@@ -54,6 +62,8 @@ set(HEADERS
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp
     src/SDL/Renderer.hpp
+    src/SDL/Font.hpp
+    src/SDL/Text.hpp
     src/components/Position.hpp
     src/components/Sprite.hpp
     src/components/Animation.hpp
@@ -105,10 +115,12 @@ if (WIN32)
     find_package(sdl2 CONFIG REQUIRED)
     find_package(SDL2_image CONFIG REQUIRED)
     find_package(sdl2-gfx CONFIG REQUIRED)
+    find_package(sdl2-ttf CONFIG REQUIRED)
 else ()
     find_package(SDL2 REQUIRED)
     find_package(SDL2_image REQUIRED)
     find_package(SDL2_gfx REQUIRED)
+    find_package(SDL2_ttf REQUIRED)
 endif ()
 
 include_directories()
@@ -124,7 +136,7 @@ target_include_directories(game
 )
 
 if (WIN32)
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx)
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx SDL2::SDL2_ttf)
 else ()
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES})
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 endif ()
