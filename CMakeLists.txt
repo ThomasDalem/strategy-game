@@ -17,6 +17,7 @@ set(SRCS
     src/HUD/Text.cpp
     src/HUD/Font.cpp
     src/HUD/layers/InGame.cpp
+    src/HUD/Box.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -50,7 +51,8 @@ set(HEADERS
     src/HUD/Button.hpp
     src/HUD/Text.hpp
     src/HUD/Font.hpp
-    src/HUD/layers/InGame.cpp
+    src/HUD/layers/InGame.hpp
+    src/HUD/Box.hpp
     src/MainLoop.hpp
     src/utils/Vec.hpp
     src/utils/Rect.hpp

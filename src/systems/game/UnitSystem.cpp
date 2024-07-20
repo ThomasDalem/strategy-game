@@ -13,6 +13,7 @@
 #include "components/game/Allied.hpp"
 #include "components/game/Selected.hpp"
 #include "components/game/Waypoint.hpp"
+#include "components/tags/Base.hpp"
 
 #include "entities/Units.hpp"
 #include "entities/Bullet.hpp"
@@ -102,11 +103,13 @@ void dragUnits(entt::registry &reg)
 
     SDL_GetMouseState(&x, &y);
 
+    const Vec2f pos(static_cast<float>(x), static_cast<float>(y));
+
     for (entt::entity unit : units) {
         const Allied &allied = reg.get<Allied>(unit);
 
         if (allied.isDragged) {
-            setPosition(reg, unit, {static_cast<float>(x), static_cast<float>(y)});
+            setPosition(reg, unit, pos);
         }
     }
 }

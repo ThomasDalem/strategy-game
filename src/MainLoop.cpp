@@ -43,7 +43,7 @@ void MainLoop::loop()
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
 
-    HUD::InGame inGameHUD(_app.getRenderer(), texturesLoader);
+    HUD::InGame inGameHUD(_app.getRenderer(), texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
 
     gameTimer.start();
 

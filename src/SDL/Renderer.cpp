@@ -88,6 +88,21 @@ void Renderer::drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint
         rect.height
     };
     setDrawColor(r, g, b, a);
+    setDrawBlendMode(SDL_BLENDMODE_BLEND); // SDL2_gfx set to no blind if a = 255 sent
+    SDL_RenderFillRect(_renderer, &sdlRect);
+    setDrawColor(255, 255, 255, 255);
+}
+
+void Renderer::drawRect(const RectI &rect, const Color &color)
+{
+    const SDL_Rect sdlRect = {
+        rect.x,
+        rect.y,
+        rect.width,
+        rect.height
+    };
+    setDrawColor(color.r, color.g, color.b, color.a);
+    setDrawBlendMode(SDL_BLENDMODE_BLEND);
     SDL_RenderFillRect(_renderer, &sdlRect);
     setDrawColor(255, 255, 255, 255);
 }

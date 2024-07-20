@@ -40,6 +40,7 @@ namespace SDL {
             );
 
             void drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+            void drawRect(const RectI &rect, const Color &color);
             void drawCircle(int x, int y, int radius, const Color &color);
             void drawFilledCircle(const Vec2f &pos, int16_t radius, const Color &color);
             void drawLine(const Vec2f &a, const Vec2f &b);

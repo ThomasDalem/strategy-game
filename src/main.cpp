@@ -6,7 +6,7 @@
 
 #include "MainLoop.hpp"
 
-int main([[maybe_unused]]int argc, [[maybe_unused]]char *argv[])
+int main()
 {
     SDL::App app(1600, 900);
     MainLoop mainLoop(app);

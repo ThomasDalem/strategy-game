@@ -18,7 +18,7 @@ void moveEnemies(entt::registry &reg)
     const auto baseView = reg.view<Base>();
     const auto enemyView = reg.view<Enemy>();
 
-    if (baseView.size() == 0) {
+    if (baseView.empty()) {
         return;
     }
 

@@ -10,7 +10,7 @@ namespace HUD
     class InGame : public Layer
     {
     public:
-        InGame(SDL::Renderer &renderer, TexturesLoader &textureLoader);
+        InGame(SDL::Renderer &renderer, TexturesLoader &textureLoader, uint16_t winW, uint16_t winH);
         ~InGame() = default;
 
         virtual void handleInput([[maybe_unused]]const SDL_Event &e, [[maybe_unused]]int mouseX, [[maybe_unused]]int mouseY) {};

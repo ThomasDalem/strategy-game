@@ -89,7 +89,11 @@
         "vec4ub": "cpp",
         "vec4ui": "cpp",
         "vec4us": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "camera": "cpp",
+        "graphicscontext": "cpp",
+        "scissor": "cpp",
+        "viewport": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
