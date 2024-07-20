@@ -117,6 +117,12 @@ void createUnit(entt::registry &reg, TexturesLoader &textureLoader)
     int y = 0;
 
     SDL_GetMouseState(&x, &y);
+    auto view = reg.view<Allied>();
+    for (const entt::entity e : view) {
+        if (reg.get<Allied>(e).isDragged) {
+            return;
+        }
+    }
     const entt::entity unit = makeAlliedInfantry(reg, textureLoader, static_cast<float>(x), static_cast<float>(y));
     Allied &allied = reg.get<Allied>(unit);
     allied.isDragged = true;

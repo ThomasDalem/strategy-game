@@ -88,7 +88,8 @@
         "vec4s": "cpp",
         "vec4ub": "cpp",
         "vec4ui": "cpp",
-        "vec4us": "cpp"
+        "vec4us": "cpp",
+        "*.inc": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

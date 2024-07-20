@@ -6,5 +6,4 @@ I'm using **C++**, **SDL2** and **entt**.
 
 ## Screenshots
 
-In progress...
 ![Game](./screenshots/game_v1.png)
