@@ -17,6 +17,8 @@
 #include "entities/Units.hpp"
 #include "entities/Bullet.hpp"
 
+#include "game/Data.hpp"
+
 entt::entity findTarget(entt::registry &reg, entt::entity unit, auto &enemiesView)
 {
     const Position &unitPos = reg.get<Position>(unit);
@@ -246,8 +248,13 @@ void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event 
 
 void checkUnitsHealth(entt::registry &reg)
 {
-    reg.view<Unit>().each([&reg](const entt::entity e, Unit &unit){
+    reg.view<Unit>().each([&reg](entt::entity e, Unit &unit){
         if (unit.health <= 0) {
+
+            Enemy *enemy = reg.try_get<Enemy>(e);
+            if (enemy != nullptr) {
+                Data::getInstance().supplies += 10;
+            }
             reg.destroy(e);
         }
     });

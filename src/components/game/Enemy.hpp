@@ -3,6 +3,9 @@
 
 #include "Unit.hpp"
 
-struct Enemy {};
+struct Enemy {
+    int test;
+    int test2;
+};
 
 #endif // ENEMY_HPP

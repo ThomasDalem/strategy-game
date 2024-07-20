@@ -11,10 +11,12 @@ namespace HUD
     {
     public:
         Text(const std::string &text, SDL::Renderer &renderer, const Vec2i &pos, int fontSize);
+        virtual ~Text() = default;
 
-        void draw(SDL::Renderer &renderer);
+        virtual void draw(SDL::Renderer &renderer);
 
         void setFontSize(int size);
+        void setText(const std::string &text);
 
     private:
         SDL::Text _text;

@@ -3,9 +3,12 @@
 using namespace HUD;
 
 Text::Text(const std::string &text, SDL::Renderer &renderer, const Vec2i &pos, int fontSize)
-    : Component(pos.x, pos.y)
+    : Component(pos.x, pos.y, 0, 0)
     , _text(text, renderer, fontSize)
-{}
+{
+    _rect.width = _text.getTexture().getWidth();
+    _rect.height = _text.getTexture().getHeight();
+}
 
 void Text::draw(SDL::Renderer &renderer)
 {
@@ -18,4 +21,11 @@ void Text::draw(SDL::Renderer &renderer)
 void Text::setFontSize(int size)
 {
     _text.setFontSize(size);
+    _rect.width = _text.getTexture().getWidth();
+    _rect.height = _text.getTexture().getHeight();
+}
+
+void Text::setText(const std::string &text)
+{
+    _text.setText(text);
 }

@@ -2,6 +2,7 @@
 #define LAYER_HPP
 
 #include <vector>
+#include <unordered_map>
 #include <memory>
 #include "HUD/Component.hpp"
 #include "HUD/Button.hpp"
@@ -24,7 +25,7 @@ namespace HUD
         virtual void checkMousePos(int x, int y) = 0;
 
     protected:
-        std::vector<std::unique_ptr<Component>> _components;
+        std::vector<std::shared_ptr<Component>> _components;
         std::vector<std::shared_ptr<Interactable>> _interactableComponents;
         bool _hidden;
     };

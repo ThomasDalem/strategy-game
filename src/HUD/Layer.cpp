@@ -1,5 +1,7 @@
 #include "Layer.hpp"
 
+#include <algorithm>
+
 using namespace HUD;
 
 Layer::Layer(bool hidden): _hidden(hidden)

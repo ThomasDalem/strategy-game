@@ -1,7 +1,12 @@
 #include "entt.hpp"
 #include "MainLoop.hpp"
+
+#include <iostream>
+
 #include "utils/TexturesLoader.hpp"
 #include "utils/Timer.hpp"
+
+#include "game/Data.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/AnimationSystem.hpp"
@@ -13,8 +18,6 @@
 #include "entities/Units.hpp"
 
 #include "HUD/layers/InGame.hpp"
-
-#include <iostream>
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -40,7 +43,7 @@ void MainLoop::loop()
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
 
-    HUD::InGame inGameHUD(_app.getRenderer());
+    HUD::InGame inGameHUD(_app.getRenderer(), texturesLoader);
 
     gameTimer.start();
 

@@ -38,6 +38,7 @@ set(SRCS
     src/systems/game/EnemySystem.cpp
     src/systems/game/UnitSystem.cpp
     src/systems/game/BulletSystem.cpp
+    src/game/Data.cpp
 )
 
 set(HEADERS
@@ -89,6 +90,7 @@ set(HEADERS
     src/systems/game/EnemySystem.hpp
     src/systems/game/UnitSystem.hpp
     src/systems/game/BulletSystem.hpp
+    src/game/Data.hpp
 )
 
 if (MSVC)
