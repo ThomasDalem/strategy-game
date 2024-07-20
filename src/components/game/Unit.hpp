@@ -3,12 +3,18 @@
 
 #include "entt.hpp"
 
+#include <array>
+
 enum UnitType
 {
     INFANTRY,
     TANK,
     BUILDING,
     BASE
+};
+
+static const std::array<int, 4> unitPrices {
+    10, 25, 50, 100
 };
 
 struct Unit

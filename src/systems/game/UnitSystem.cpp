@@ -111,12 +111,15 @@ void dragUnits(entt::registry &reg)
     }
 }
 
-void createUnit(entt::registry &reg, TexturesLoader &textureLoader)
+void createUnit(entt::registry &reg, TexturesLoader &textureLoader, UnitType unitType)
 {
     int x = 0;
     int y = 0;
 
     SDL_GetMouseState(&x, &y);
+    if (Data::getInstance().supplies < unitPrices[unitType]) {
+        return;
+    }
     auto view = reg.view<Allied>();
     for (const entt::entity e : view) {
         if (reg.get<Allied>(e).isDragged) {
@@ -126,6 +129,7 @@ void createUnit(entt::registry &reg, TexturesLoader &textureLoader)
     const entt::entity unit = makeAlliedInfantry(reg, textureLoader, static_cast<float>(x), static_cast<float>(y));
     Allied &allied = reg.get<Allied>(unit);
     allied.isDragged = true;
+    Data::getInstance().supplies -= unitPrices[unitType];
 }
 
 void deployUnit(entt::registry &reg)
@@ -238,7 +242,7 @@ void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event 
 {
     if (e.type == SDL_KEYDOWN) {
         if (e.key.keysym.sym == SDLK_b) {
-            createUnit(reg, textureLoader);
+            createUnit(reg, textureLoader, UnitType::INFANTRY);
         }
     }
     else if (e.type == SDL_MOUSEBUTTONDOWN) {

@@ -1,4 +1,4 @@
 #include "Data.hpp"
 
-Data::Data(): supplies(0)
+Data::Data(): supplies(50)
 {}
