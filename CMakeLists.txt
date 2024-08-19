@@ -18,6 +18,7 @@ set(SRCS
     src/HUD/Font.cpp
     src/HUD/layers/InGame.cpp
     src/HUD/Box.cpp
+    src/HUD/game/BuyButton.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -40,6 +41,7 @@ set(SRCS
     src/systems/game/UnitSystem.cpp
     src/systems/game/BulletSystem.cpp
     src/game/Data.cpp
+    src/game/Shop.cpp
 )
 
 set(HEADERS
@@ -53,6 +55,7 @@ set(HEADERS
     src/HUD/Font.hpp
     src/HUD/layers/InGame.hpp
     src/HUD/Box.hpp
+    src/HUD/game/BuyButton.hpp
     src/MainLoop.hpp
     src/utils/Vec.hpp
     src/utils/Rect.hpp
@@ -93,6 +96,7 @@ set(HEADERS
     src/systems/game/UnitSystem.hpp
     src/systems/game/BulletSystem.hpp
     src/game/Data.hpp
+    src/game/Shop.hpp
 )
 
 if (MSVC)

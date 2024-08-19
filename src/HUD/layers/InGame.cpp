@@ -1,18 +1,22 @@
 #include "HUD/layers/InGame.hpp"
 
+#include <iostream>
+#include <functional>
+
 #include "HUD/DynamicText.hpp"
 #include "HUD/Image.hpp"
 #include "HUD/Box.hpp"
+#include "HUD/game/BuyButton.hpp"
 
 #include "game/Data.hpp"
 
-#include <iostream>
-
 using namespace HUD;
 
-InGame::InGame(SDL::Renderer &renderer, TexturesLoader &textureLoader, uint16_t winW, uint16_t winH) : Layer()
+InGame::InGame(entt::registry &reg, SDL::Renderer &renderer, TexturesLoader &texturesLoader, uint16_t winW, uint16_t winH)
+    : Layer()
+    , _shop(reg, texturesLoader)
 {
-    _components.push_back(std::make_unique<Image>("../assets/bullets_icon.png", textureLoader, 300, 20));
+    _components.push_back(std::make_unique<Image>("../assets/bullets_icon.png", texturesLoader, 300, 20));
     Vec2i iconPos = _components.back()->getPos();
     iconPos.x += _components.back()->getWidth() + 10;
     iconPos.y -= 10;
@@ -27,6 +31,8 @@ InGame::InGame(SDL::Renderer &renderer, TexturesLoader &textureLoader, uint16_t 
     {
         const int posX = boxPosX + 10;
         const int posY = boxPosY + 10;
-        _components.push_back(std::make_unique<Image>("../assets/allied_infantry.png", textureLoader, posX, posY));
+        const std::string imagePath("../assets/allied_infantry.png");
+        auto f = std::bind(&Shop::buyUnit, _shop, UnitType::INFANTRY);
+        _interactableComponents.push_back(std::make_shared<BuyButton>(posX, posY, 50, 50, imagePath, texturesLoader, 100, f));
     }
 }

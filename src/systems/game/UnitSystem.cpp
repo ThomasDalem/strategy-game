@@ -2,13 +2,14 @@
 
 #include <limits>
 #include <iostream>
+#include <random>
+#include <cmath>
 
 #include "utils/TransformUtils.hpp"
 
 #include "components/Sprite.hpp"
 #include "components/Circle.hpp"
 #include "components/Movement.hpp"
-#include "components/game/Unit.hpp"
 #include "components/game/Enemy.hpp"
 #include "components/game/Allied.hpp"
 #include "components/game/Selected.hpp"
@@ -116,22 +117,33 @@ void dragUnits(entt::registry &reg)
 
 void createUnit(entt::registry &reg, TexturesLoader &textureLoader, UnitType unitType)
 {
-    int x = 0;
-    int y = 0;
+    const auto baseView = reg.view<Base>();
 
-    SDL_GetMouseState(&x, &y);
-    if (Data::getInstance().supplies < unitPrices[unitType]) {
+    if (baseView.empty())
+    {
         return;
     }
-    auto view = reg.view<Allied>();
-    for (const entt::entity e : view) {
-        if (reg.get<Allied>(e).isDragged) {
-            return;
-        }
+    if (Data::getInstance().supplies < unitPrices[unitType])
+    {
+        return;
     }
-    const entt::entity unit = makeAlliedInfantry(reg, textureLoader, static_cast<float>(x), static_cast<float>(y));
-    Allied &allied = reg.get<Allied>(unit);
-    allied.isDragged = true;
+
+    const Position &basePos = reg.get<Position>(baseView.begin()[0]);
+
+    const entt::entity unit = makeAlliedInfantry(reg, textureLoader, basePos.x, basePos.y);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> distrib(-1, 1);
+
+    const float angle = distrib(gen) * M_PI * 2;
+    const float radius = 100.f;
+    Vec2f dir(std::cos(angle) * radius, std::sin(angle) * radius);
+
+    dir += basePos;
+
+    reg.emplace<Waypoint>(unit, dir);
+
     Data::getInstance().supplies -= unitPrices[unitType];
 }
 

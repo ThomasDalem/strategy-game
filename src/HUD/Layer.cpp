@@ -1,6 +1,6 @@
 #include "Layer.hpp"
 
-#include <algorithm>
+#include "utils/Rect.hpp"
 
 using namespace HUD;
 
@@ -19,19 +19,44 @@ bool Layer::getHidden()
 
 void Layer::draw(SDL::Renderer &renderer)
 {
-    if (_hidden) {
+    if (_hidden)
+    {
         return;
     }
-    for (auto &component : _components) {
-        if (component->isHidden()) {
+
+    for (auto &component : _components)
+    {
+        if (component->isHidden())
+        {
             continue;
         }
         component->draw(renderer);
     }
-    for (auto &component : _interactableComponents) {
-        if (component->isHidden()) {
+    for (auto &component : _interactableComponents)
+    {
+        if (component->isHidden())
+        {
             continue;
         }
         component->draw(renderer);
+    }
+}
+
+void Layer::handleInput(const SDL_Event &e)
+{
+    int x = 0;
+    int y = 0;
+
+    SDL_GetMouseState(&x, &y);
+
+    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+    {
+        for (std::shared_ptr<Interactable> &component : _interactableComponents)
+        {
+            if (pointInRect(component->getRect(), x, y) == true)
+            {
+                component->onClickDown(x, y);
+            }
+        }
     }
 }

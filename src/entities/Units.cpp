@@ -59,11 +59,11 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int speed = 50;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    bool isActive = false;
+    const bool isActive = true;
 
     reg.emplace<Position>(e, x, y);
     reg.emplace<Unit>(e, unitType, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
-    const Sprite &sprite = reg.emplace<Sprite>(
+    Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
         Vec2f{x, y},             // Pos on screen
@@ -74,9 +74,11 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
         SDL_FLIP_NONE,           // Texture flip
         textureLoader.getTexture("../assets/allied_infantry.png")
     );
-    reg.emplace<Allied>(e, false);
+    const bool isDragged = false;
+    reg.emplace<Allied>(e, isDragged);
     const Vec2i spriteCenter = sprite.texture->getCenter();
-    reg.emplace<Circle>(e, Color{255, 255, 255, 255}, x + spriteCenter.x, y + spriteCenter.y, range, false, false);
+    sprite.pos -= spriteCenter;
+    reg.emplace<Circle>(e, Color{255, 255, 255, 255}, x + spriteCenter.x, y + spriteCenter.y, range, false, true);
 
     return e;
 }
