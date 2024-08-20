@@ -7,6 +7,11 @@ Component::Component(int x, int y, int width, int height, bool hidden)
     , _hidden(hidden)
 {}
 
+Component::Component(const RectI &rect, bool hidden)
+    : _rect(rect)
+    , _hidden(hidden)
+{}
+
 int Component::getX() const
 {
     return _rect.x;

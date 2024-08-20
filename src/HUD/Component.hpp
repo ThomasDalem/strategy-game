@@ -11,6 +11,7 @@ namespace HUD
     {
     public:
         Component(int x = 0, int y = 0, int width = 0, int height = 0, bool hidden = false);
+        Component(const RectI &rect, bool hidden = false);
         virtual ~Component() = default;
 
         int getX() const;

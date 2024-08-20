@@ -18,14 +18,17 @@ namespace SDL
 
         void setText(const std::string &string);
         void setFontSize(int size);
+
         const std::string &getText() const;
         Texture &getTexture();
+        inline int getFontSize() const;
 
     private:
         std::string _text;
         Surface _surface;
         Texture _texture;
         SDL::Renderer &_renderer;
+        int _fontSize;
     };
 }
 

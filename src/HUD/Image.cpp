@@ -30,3 +30,8 @@ void Image::draw(SDL::Renderer &renderer)
     };
     renderer.copy(*_texture, nullptr, &rect);
 }
+
+Vec2i Image::getCenter() const
+{
+    return _texture->getCenter();
+}

@@ -9,7 +9,7 @@ namespace HUD
     {
     public:
         Box(int x, int y, int width, int height, const Color &color = {255, 255, 255, 255});
-        Box(const RectF &rect, const Color &color = {255, 255, 255, 255});
+        Box(const RectI &rect, const Color &color = {255, 255, 255, 255});
 
         void setColor(const Color &color);
 

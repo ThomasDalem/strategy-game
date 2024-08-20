@@ -15,10 +15,12 @@ namespace SDL
         void loadFont(const std::string &filepath, int size);
         void setSize(int size);
         TTF_Font *getFont();
+        int getSize() const;
         bool isLoaded() const;
 
     private:
         TTF_Font *_font;
+        int _size;
     };
 }
 

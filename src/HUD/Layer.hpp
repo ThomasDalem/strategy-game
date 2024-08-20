@@ -23,6 +23,9 @@ namespace HUD
 
         virtual void handleInput(const SDL_Event &e);
         virtual void checkMousePos(int x, int y) = 0;
+    
+    private:
+        void checkHover(int x, int y);
 
     protected:
         std::vector<std::shared_ptr<Component>> _components;

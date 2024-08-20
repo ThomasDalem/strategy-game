@@ -16,6 +16,8 @@ namespace HUD
 
         void draw(SDL::Renderer &renderer);
 
+        Vec2i getCenter() const;
+
     protected:
         std::shared_ptr<SDL::Texture> _texture;
     };

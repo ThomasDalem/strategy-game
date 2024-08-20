@@ -17,6 +17,7 @@ namespace HUD
     {
     public:
         Interactable(int x, int y, int width, int height);
+        Interactable(const RectI &rect);
 
         virtual ComponentType getType() const = 0;
 
@@ -24,7 +25,7 @@ namespace HUD
         virtual void onClick([[maybe_unused]]int x, [[maybe_unused]]int y) {};
         virtual void onClickUp([[maybe_unused]]int x, [[maybe_unused]]int y) {};
         virtual void onHoverEnter() {};
-        virtual void onHover([[maybe_unused]]int x, [[maybe_unused]]int y) {};
+        virtual void onHover() {};
         virtual void onHoverQuit() {};
 
         bool isHovered() const;

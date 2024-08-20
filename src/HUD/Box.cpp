@@ -7,7 +7,7 @@ Box::Box(int x, int y, int width, int height, const Color &color)
     , _color(color)
 {}
 
-Box::Box(const RectF &rect, const Color &color)
+Box::Box(const RectI &rect, const Color &color)
     : Component(rect.x, rect.y, rect.width, rect.height)
     , _color(color)
 {}

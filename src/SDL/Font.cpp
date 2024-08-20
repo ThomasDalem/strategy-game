@@ -42,6 +42,11 @@ TTF_Font *Font::getFont()
     return _font;
 }
 
+int Font::getSize() const
+{
+    return _size;
+}
+
 bool Font::isLoaded() const
 {
     return _font != nullptr;

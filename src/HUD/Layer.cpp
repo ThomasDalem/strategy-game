@@ -59,4 +59,23 @@ void Layer::handleInput(const SDL_Event &e)
             }
         }
     }
+    else if (e.type == SDL_MOUSEMOTION)
+    {
+        checkHover(x, y);
+    }
+}
+
+void Layer::checkHover(int x, int y)
+{
+    for (std::shared_ptr<Interactable> &component : _interactableComponents)
+    {
+        if (pointInRect(component->getRect(), x, y))
+        {
+            component->onHoverEnter();
+        }
+        else
+        {
+            component->onHoverQuit();
+        }
+    }
 }

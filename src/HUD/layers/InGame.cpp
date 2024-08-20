@@ -22,17 +22,18 @@ InGame::InGame(entt::registry &reg, SDL::Renderer &renderer, TexturesLoader &tex
     iconPos.y -= 10;
     _components.push_back(std::make_unique<DynamicText<int>>(&Data::getInstance().supplies, renderer, iconPos, 48));
 
-    const float width = 100;
-    const float height = 400;
-    const float boxPosX = winW - width;
-    const float boxPosY = winH / 2 - height / 2;
-    _components.push_back(std::make_unique<Box>(RectF{boxPosX, boxPosY, width, height}, Color{255, 255, 255, 50}));
-    
+    const int width = 100;
+    const int height = 400;
+    const int boxPosX = winW - width;
+    const int boxPosY = winH / 2 - height / 2;
+    _components.push_back(std::make_unique<Box>(RectI{boxPosX, boxPosY, width, height}, Color{255, 255, 255, 50}));
+
     {
         const int posX = boxPosX + 10;
         const int posY = boxPosY + 10;
         const std::string imagePath("../assets/allied_infantry.png");
         auto f = std::bind(&Shop::buyUnit, _shop, UnitType::INFANTRY);
-        _interactableComponents.push_back(std::make_shared<BuyButton>(posX, posY, 50, 50, imagePath, texturesLoader, 100, f));
+        const RectI rect { posX, posY, 50, 50 };
+        _interactableComponents.push_back(std::make_shared<BuyButton>(rect, imagePath, texturesLoader, renderer, 10, f));
     }
 }
