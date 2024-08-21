@@ -1,5 +1,8 @@
 #include "EnemySystem.hpp"
 
+#include <random>
+#include <cmath>
+
 #include "utils/Timer.hpp"
 
 #include "components/Movement.hpp"
@@ -43,9 +46,25 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
 {
     static const float spawnRate = 5.f; // in seconds
     static float lastSpawnTime = 0.f;
+    const auto baseView = reg.view<Base>();
+
+    if (baseView.empty())
+    {
+        return;
+    }
+
+    const Position &basePos = reg.get<Position>(baseView.begin()[0]);
+    static std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> distrib(-1, 1);
+
+    const float angle = distrib(gen) * M_PI * 2;
+    const float radius = 1000.f;
+    const float x = std::cos(angle) * radius + basePos.x;
+    const float y = std::sin(angle) * radius + basePos.y;
 
     if (deltaTime - lastSpawnTime > spawnRate) {
-        makeEnemyInfantry(reg, textureLoader, 100.f, 100.f);
+        makeEnemyInfantry(reg, textureLoader, x, y);
         lastSpawnTime = deltaTime;
     }
 }
