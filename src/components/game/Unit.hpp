@@ -8,19 +8,20 @@
 enum UnitType
 {
     INFANTRY,
-    TANK,
+    ARMORED,
     BUILDING,
     BASE
 };
 
 static const std::array<int, 4> unitPrices {
-    10, 25, 50, 100
+    10, 100, 50, 100
 };
 
 struct Unit
 {
     UnitType type;
     int health;
+    int totalHealth;
     int ammo;
     int range;
     int damage;

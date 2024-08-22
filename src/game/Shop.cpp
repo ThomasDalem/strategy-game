@@ -9,13 +9,5 @@ Shop::Shop(entt::registry &reg, TexturesLoader &texturesLoader)
 
 void Shop::buyUnit(UnitType type)
 {
-    switch (type)
-    {
-    case UnitType::INFANTRY:
-        createUnit(_reg, _texturesLoader, UnitType::INFANTRY);
-        break;
-
-    default:
-        break;
-    }
+    createUnit(_reg, _texturesLoader, type);
 }

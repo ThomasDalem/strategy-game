@@ -36,4 +36,13 @@ InGame::InGame(entt::registry &reg, SDL::Renderer &renderer, TexturesLoader &tex
         const RectI rect { posX, posY, 50, 50 };
         _interactableComponents.push_back(std::make_shared<BuyButton>(rect, imagePath, texturesLoader, renderer, 10, f));
     }
+    {
+        const std::shared_ptr<Interactable> &lastBtnPos = _interactableComponents.back();
+        const int posX = boxPosX + 10;
+        const int posY = lastBtnPos->getY() + lastBtnPos->getHeight() + 10;
+        const std::string imagePath("../assets/armored.png");
+        auto f = std::bind(&Shop::buyUnit, _shop, UnitType::ARMORED);
+        const RectI rect { posX, posY, 50, 50 };
+        _interactableComponents.push_back(std::make_shared<BuyButton>(rect, imagePath, texturesLoader, renderer, 100, f));
+    }
 }

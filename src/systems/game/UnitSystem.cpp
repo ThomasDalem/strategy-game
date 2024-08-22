@@ -130,7 +130,24 @@ void createUnit(entt::registry &reg, TexturesLoader &textureLoader, UnitType uni
 
     const Position &basePos = reg.get<Position>(baseView.begin()[0]);
 
-    const entt::entity unit = makeAlliedInfantry(reg, textureLoader, basePos.x, basePos.y);
+    entt::entity unit = entt::null;
+
+    switch (unitType)
+    {
+    case UnitType::INFANTRY:
+        unit = makeAlliedInfantry(reg, textureLoader, basePos.x, basePos.y);
+        break;
+    case UnitType::ARMORED:
+        unit = makeFriendlyArmored(reg, textureLoader, basePos.x, basePos.y);
+        break;
+    default:
+        break;
+    }
+
+    if (unit == entt::null)
+    {
+        return;
+    }
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -180,11 +197,11 @@ void drawHealth(entt::registry &reg, SDL::Renderer &renderer)
         const RectI rect {
             static_cast<int>(sprite.pos.x),
             static_cast<int>(sprite.pos.y + sprite.rect.height + 5),
-            static_cast<int>(sprite.rect.width * (static_cast<float>(unit.health) / 100)),
+            static_cast<int>(sprite.rect.width * (static_cast<float>(unit.health) / unit.totalHealth)),
             10
         };
 
-        const uint8_t green = 255 * (static_cast<float>(unit.health) / 100);
+        const uint8_t green = 255 * (static_cast<float>(unit.health) / unit.totalHealth);
         const uint8_t red = 255 - green;
         renderer.drawRect(rect, red, green, 0, 255);
     }

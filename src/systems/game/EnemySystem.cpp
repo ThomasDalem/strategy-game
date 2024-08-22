@@ -46,6 +46,12 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
 {
     static const float spawnRate = 5.f; // in seconds
     static float lastSpawnTime = 0.f;
+
+    if (deltaTime - lastSpawnTime < spawnRate)
+    {
+        return;
+    }
+
     const auto baseView = reg.view<Base>();
 
     if (baseView.empty())
@@ -63,10 +69,17 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
     const float x = std::cos(angle) * radius + basePos.x;
     const float y = std::sin(angle) * radius + basePos.y;
 
-    if (deltaTime - lastSpawnTime > spawnRate) {
-        makeEnemyInfantry(reg, textureLoader, x, y);
-        lastSpawnTime = deltaTime;
+    std::uniform_int_distribution<> distrib2(1, 10);
+
+    if (distrib2(gen) == 1)
+    {
+        makeHostileArmored(reg, textureLoader, x, y);
     }
+    else
+    {
+        makeEnemyInfantry(reg, textureLoader, x, y);
+    }
+    lastSpawnTime = deltaTime;
 }
 
 void enemySystem(entt::registry &reg)
