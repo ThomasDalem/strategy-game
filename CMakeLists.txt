@@ -31,6 +31,7 @@ set(SRCS
     src/SDL/Renderer.cpp
     src/SDL/Font.cpp
     src/SDL/Text.cpp
+    src/SDL/Chunk.cpp
     src/entities/Units.cpp
     src/entities/Bullet.cpp
     src/systems/RenderSystem.cpp
@@ -70,6 +71,7 @@ set(HEADERS
     src/SDL/Renderer.hpp
     src/SDL/Font.hpp
     src/SDL/Text.hpp
+    src/SDL/Chunk.hpp
     src/components/Position.hpp
     src/components/Sprite.hpp
     src/components/Animation.hpp
@@ -124,11 +126,13 @@ if (WIN32)
     find_package(SDL2_image CONFIG REQUIRED)
     find_package(sdl2-gfx CONFIG REQUIRED)
     find_package(sdl2-ttf CONFIG REQUIRED)
+    find_package(SDL2_mixer REQUIRED)
 else ()
     find_package(SDL2 REQUIRED)
     find_package(SDL2_image REQUIRED)
     find_package(SDL2_gfx REQUIRED)
     find_package(SDL2_ttf REQUIRED)
+    find_package(SDL2_mixer REQUIRED)
 endif ()
 
 include_directories()
@@ -141,10 +145,11 @@ target_include_directories(game
     PUBLIC ${SDL2_INCLUDE_DIRS}
     PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
     PUBLIC ${SDL2_GFX_INCLUDE_DIRS}
+    PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
 )
 
 if (WIN32)
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx SDL2::SDL2_ttf)
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx SDL2::SDL2_ttf SDL2::Mixer)
 else ()
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES})
 endif ()

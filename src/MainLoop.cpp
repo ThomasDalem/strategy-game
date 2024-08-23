@@ -15,6 +15,8 @@
 #include "systems/game/UnitSystem.hpp"
 #include "systems/game/BulletSystem.hpp"
 
+#include "SDL/Chunk.hpp"
+
 #include "entities/Units.hpp"
 
 #include "HUD/layers/InGame.hpp"
@@ -42,10 +44,14 @@ void MainLoop::loop()
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
+    SDL::MixChunk chunk("../assets/running.wav");
 
     HUD::InGame inGameHUD(reg, _app.getRenderer(), texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
 
     gameTimer.start();
+
+    Mix_PlayChannel(-1, chunk.getChunk(), 0);
+    chunk.setVolume(128);
 
     while (!_quit) {
         int mouseX = 0;
