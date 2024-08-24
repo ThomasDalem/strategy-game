@@ -8,12 +8,15 @@ namespace SDL
 {
     class MixChunk
     {
-    public: 
+    public:
         MixChunk(const std::string &filename);
         ~MixChunk();
 
         Mix_Chunk *getChunk();
-        void setVolume(int volume);
+        // Volume between 0 and 128
+        int setVolume(int volume);
+        // Returns the channel
+        int play(int loops = 0, int channel = -1);
 
     private:
         Mix_Chunk *_chunk;

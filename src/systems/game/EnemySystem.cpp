@@ -1,9 +1,9 @@
 #include "EnemySystem.hpp"
 
-#include <random>
 #include <cmath>
 
 #include "utils/Timer.hpp"
+#include "utils/Random.hpp"
 
 #include "components/Movement.hpp"
 #include "components/Sprite.hpp"
@@ -60,11 +60,9 @@ void spawnEnemies(entt::registry &reg, TexturesLoader &textureLoader, float delt
     }
 
     const Position &basePos = reg.get<Position>(baseView.begin()[0]);
-    static std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> distrib(-1, 1);
+    RandomFloat random(-1.f, 1.f);
 
-    const float angle = distrib(gen) * M_PI * 2;
+    const float angle = random.generate() * M_PI * 2;
     const float radius = 1000.f;
     const float x = std::cos(angle) * radius + basePos.x;
     const float y = std::sin(angle) * radius + basePos.y;

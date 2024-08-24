@@ -25,6 +25,8 @@ set(SRCS
     src/utils/Timer.cpp
     src/utils/TransformUtils.cpp
     src/utils/Infos.cpp
+    src/utils/SoundLoader.cpp
+    src/utils/Random.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
@@ -65,6 +67,8 @@ set(HEADERS
     src/utils/TransformUtils.hpp
     src/utils/Infos.hpp
     src/utils/Color.hpp
+    src/utils/SoundLoader.hpp
+    src/utils/Random.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp
@@ -120,6 +124,7 @@ if (WIN32)
     set(SDL2_image_DIR "C:/Users/Thomas/vcpkg/packages/sdl2-image_x64-windows/share/SDL2_image")
 endif ()
 
+find_package(Boost 1.83 REQUIRED COMPONENTS json)
 
 if (WIN32)
     find_package(sdl2 CONFIG REQUIRED)
@@ -149,7 +154,7 @@ target_include_directories(game
 )
 
 if (WIN32)
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx SDL2::SDL2_ttf SDL2::Mixer)
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} SDL2::SDL2_image SDL2_gfx::SDL2_gfx SDL2::SDL2_ttf SDL2::Mixer Boost::json)
 else ()
-    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES})
+    target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES} Boost::json)
 endif ()

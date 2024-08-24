@@ -14,5 +14,6 @@ void drawHealth(entt::registry &reg, SDL::Renderer &renderer);
 void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event &e);
 void moveUnits(entt::registry &reg);
 void checkUnitsHealth(entt::registry &reg);
+std::string getUnitSoundGroup(const Unit &unit);
 
 #endif // UNIT_SYSTEM_HPP

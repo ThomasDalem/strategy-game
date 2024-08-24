@@ -26,7 +26,16 @@ Mix_Chunk *MixChunk::getChunk()
     return _chunk;
 }
 
-void MixChunk::setVolume(int volume)
+int MixChunk::setVolume(int volume)
 {
-    Mix_VolumeChunk(_chunk, volume);
+    return Mix_VolumeChunk(_chunk, volume);
+}
+
+int MixChunk::play(int loops, int channel)
+{
+    if (_chunk == nullptr)
+    {
+        std::cerr << "Trying to play null chunk\n";
+    }
+    return Mix_PlayChannel(channel, _chunk, loops);
 }

@@ -7,6 +7,8 @@
 #include "components/game/Allied.hpp"
 #include "components/game/Unit.hpp"
 #include "components/tags/Base.hpp"
+#include "components/Sound.hpp"
+#include "utils/SoundLoader.hpp"
 
 entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, float x, float y)
 {

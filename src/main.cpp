@@ -1,8 +1,10 @@
 #include <iostream>
+#include <SDL2/SDL.h>
 #include "SDL/App.hpp"
 
 #define SDL_MAIN_HANDLED // Error when compiling on windows if not set because of SDL_main
-#include <SDL2/SDL.h>
+
+#include "utils/Random.hpp"
 
 #include "MainLoop.hpp"
 

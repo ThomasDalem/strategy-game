@@ -4,8 +4,11 @@
 #include <iostream>
 #include <random>
 #include <cmath>
+#include <array>
 
 #include "utils/TransformUtils.hpp"
+#include "utils/SoundLoader.hpp"
+#include "utils/Random.hpp"
 
 #include "components/Sprite.hpp"
 #include "components/Circle.hpp"
@@ -15,6 +18,7 @@
 #include "components/game/Selected.hpp"
 #include "components/game/Waypoint.hpp"
 #include "components/tags/Base.hpp"
+#include "components/Sound.hpp"
 
 #include "entities/Units.hpp"
 #include "entities/Bullet.hpp"
@@ -65,6 +69,16 @@ void engageTarget(entt::registry &reg, float gameTime, entt::entity unit, entt::
     if (lastShot > infos.firerate / 10.f && getDistance(unitPos, enemyPos) < infos.range) {
         const float bulletSpeed = 600.f;
         makeBullet(reg, unitPos, enemyPos, bulletSpeed);
+
+        // SFX
+        std::string group = getUnitSoundGroup(infos) + "/shooting";
+        SDL::MixChunk *chunk = SoundLoader::getInstance().loadRandomChunk(group);
+
+        reg.emplace_or_replace<Sound>(unit, chunk);
+        if (chunk)
+        {
+            chunk->play();
+        }
 
         enemyInfos.health -= infos.damage;
         infos.lastShotTime = gameTime;
@@ -149,11 +163,8 @@ void createUnit(entt::registry &reg, TexturesLoader &textureLoader, UnitType uni
         return;
     }
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> distrib(-1, 1);
-
-    const float angle = distrib(gen) * M_PI * 2;
+    RandomFloat ran(-1.f, 1.f);
+    const float angle = ran.generate() * M_PI * 2;
     const float radius = 100.f;
     Vec2f dir(std::cos(angle) * radius, std::sin(angle) * radius);
 
@@ -247,9 +258,20 @@ void setUnitWaypoint(entt::registry &reg)
     int y = 0;
 
     SDL_GetMouseState(&x, &y);
-
+ 
     for (const entt::entity e : view) {
         reg.emplace_or_replace<Waypoint>(e, Vec2f{static_cast<float>(x), static_cast<float>(y)});
+
+        const Unit &unit = reg.get<Unit>(e);
+        std::string group = getUnitSoundGroup(unit) + "/roger";
+        SDL::MixChunk *chunk = SoundLoader::getInstance().loadRandomChunk(group);
+
+        reg.emplace_or_replace<Sound>(e, chunk);
+        if (chunk == nullptr)
+        {
+            continue;
+        }
+        chunk->play();
     }
 }
 
@@ -301,3 +323,18 @@ void checkUnitsHealth(entt::registry &reg)
         }
     });
 }
+
+std::string getUnitSoundGroup(const Unit &unit)
+{
+    switch (unit.type)
+    {
+    case UnitType::INFANTRY:
+        return "/unit_type/infantry";
+    case UnitType::ARMORED:
+        return "/unit_type/armored";
+    default:
+        break;
+    }
+    return "";
+}
+

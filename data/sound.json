@@ -1,0 +1,34 @@
+{
+    "unit_type": {
+        "infantry": {
+            "shooting": [
+                {"name": "shots_1", "filepath": "assets/shots.wav"},
+                {"name": "shots_2", "filepath": "assets/shots_2.wav"}
+            ],
+            "roger": [
+                {"name": "roger_1", "filepath": "assets/roger_1.wav"},
+                {"name": "roger_2", "filepath": "assets/roger_2.wav"},
+                {"name": "roger_3", "filepath": "assets/roger_3.wav"},
+                {"name": "roger_4", "filepath": "assets/roger_4.wav"},
+                {"name": "roger_5", "filepath": "assets/roger_5.wav"}
+            ]
+        },
+        "armored": {
+            "shooting": [
+                {"name": "shots", "filepath": "assets/shots.wav"}
+            ],
+            "roger": [
+                {"name": "roger_1", "filepath": "assets/roger_1.wav"}
+            ]
+        }
+    },
+    "all": [
+        {"name": "roger_1", "filepath": "assets/roger_1.wav"},
+        {"name": "roger_2", "filepath": "assets/roger_2.wav"},
+        {"name": "roger_3", "filepath": "assets/roger_3.wav"},
+        {"name": "roger_4", "filepath": "assets/roger_4.wav"},
+        {"name": "roger_5", "filepath": "assets/roger_5.wav"},
+        {"name": "shots_1", "filepath": "assets/shots.wav"},
+        {"name": "shots_2", "filepath": "assets/shots_2.wav"}
+    ]
+}
