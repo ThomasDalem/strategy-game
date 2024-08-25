@@ -29,9 +29,13 @@ App::App(uint16_t screenWidth, uint16_t screenHeight) : _screenWidth(screenWidth
         throw "Window error";
     }
 
+    SDL_SetWindowResizable(_window, SDL_TRUE);
+
     _renderer.initRenderer(_window);
 
     _renderer.setDrawColor(50, 50, 50, 0);
+
+    SDL_RenderSetLogicalSize(_renderer.getRenderer(), screenWidth, screenHeight);
 
     // Init PNG loading
     const int imgFlags = IMG_INIT_PNG;

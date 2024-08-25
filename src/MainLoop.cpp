@@ -5,6 +5,9 @@
 
 #include "utils/TexturesLoader.hpp"
 #include "utils/Timer.hpp"
+#include "utils/WinInfo.hpp"
+
+#include "SDL2/SDL_hints.h"
 
 #include "game/Data.hpp"
 
@@ -40,7 +43,7 @@ void MainLoop::loop()
     const uint16_t screenCenterX = _app.getScreenWidth() / 2;
     const uint16_t screenCenterY = _app.getScreenHeight() / 2;
     makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
-    makeEnemyInfantry(reg, texturesLoader, 1000.f, 800.f);
+    makeEnemyInfantry(reg, texturesLoader, 1000.f, 1000.f);
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
@@ -49,17 +52,19 @@ void MainLoop::loop()
 
     gameTimer.start();
 
-    while (!_quit) {
-        int mouseX = 0;
-        int mouseY = 0;
-        SDL_GetMouseState(&mouseX, &mouseY);
-
-        dragUnits(reg);
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
+    while (!_quit)
+    {
+        while (SDL_PollEvent(&e) != 0)
+        {
+            if (e.type == SDL_QUIT)
+            {
                 _quit = true;
             }
-            handleInputs(reg, texturesLoader, e);
+            if (e.type == SDL_MOUSEMOTION)
+            {
+                WinInfo::getInstance().setMousePos(e.motion.x, e.motion.y);
+            }
+            handleInputs(reg, e);
             inGameHUD.handleInput(e);
         }
 

@@ -9,6 +9,7 @@
 #include "utils/TransformUtils.hpp"
 #include "utils/SoundLoader.hpp"
 #include "utils/Random.hpp"
+#include "utils/WinInfo.hpp"
 
 #include "components/Sprite.hpp"
 #include "components/Circle.hpp"
@@ -232,17 +233,13 @@ void unselectUnits(entt::registry &reg)
 
 void selectUnit(entt::registry &reg)
 {
-    int x = 0;
-    int y = 0;
-
-    SDL_GetMouseState(&x, &y);
-
     const auto view = reg.view<Unit, Allied, Sprite, Circle>();
+    const Vec2i mousePos = WinInfo::getInstance().getScaledMousePos();
 
     unselectUnits(reg);
     for (const entt::entity unit : view) {
         const Sprite &unitSprite = reg.get<Sprite>(unit);
-        if (pointInRect(unitSprite.rect, x, y)) {
+        if (pointInRect(unitSprite.rect, mousePos.x, mousePos.y)) {
             Circle &unitCircle = reg.get<Circle>(unit);
             reg.emplace<Selected>(unit);
             unitCircle.hidden = false;
@@ -254,13 +251,10 @@ void selectUnit(entt::registry &reg)
 void setUnitWaypoint(entt::registry &reg)
 {
     const auto view = reg.view<Unit, Allied, Selected>();
-    int x = 0;
-    int y = 0;
-
-    SDL_GetMouseState(&x, &y);
+    const Vec2i mousePos = WinInfo::getInstance().getScaledMousePos();
  
     for (const entt::entity e : view) {
-        reg.emplace_or_replace<Waypoint>(e, Vec2f{static_cast<float>(x), static_cast<float>(y)});
+        reg.emplace_or_replace<Waypoint>(e, Vec2f{static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)});
 
         const Unit &unit = reg.get<Unit>(e);
         std::string group = getUnitSoundGroup(unit) + "/roger";
@@ -292,17 +286,11 @@ void moveUnits(entt::registry &reg)
     }
 }
 
-void handleInputs(entt::registry &reg, TexturesLoader &textureLoader, SDL_Event &e)
+void handleInputs(entt::registry &reg, SDL_Event &e)
 {
-    if (e.type == SDL_KEYDOWN) {
-        if (e.key.keysym.sym == SDLK_b) {
-            createUnit(reg, textureLoader, UnitType::INFANTRY);
-        }
-    }
-    else if (e.type == SDL_MOUSEBUTTONDOWN) {
+    if (e.type == SDL_MOUSEBUTTONDOWN) {
         if (e.button.button == SDL_BUTTON_LEFT) {
             selectUnit(reg);
-            deployUnit(reg);
         }
         else if (e.button.button == SDL_BUTTON_RIGHT) {
             setUnitWaypoint(reg);

@@ -4,14 +4,16 @@
 
 #define SDL_MAIN_HANDLED // Error when compiling on windows if not set because of SDL_main
 
-#include "utils/Random.hpp"
+#include "utils/WinInfo.hpp"
 
 #include "MainLoop.hpp"
 
 int main()
 {
-    SDL::App app(1600, 900);
+    SDL::App app(1920, 1080);
     MainLoop mainLoop(app);
+
+    WinInfo::getInstance().setApp(&app);
 
     mainLoop.loop();
 

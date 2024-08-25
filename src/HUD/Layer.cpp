@@ -1,6 +1,9 @@
 #include "Layer.hpp"
 
+#include <iostream>
+
 #include "utils/Rect.hpp"
+#include "utils/WinInfo.hpp"
 
 using namespace HUD;
 
@@ -48,20 +51,21 @@ void Layer::handleInput(const SDL_Event &e)
     int y = 0;
 
     SDL_GetMouseState(&x, &y);
+    Vec2i mousePos = WinInfo::getInstance().getScaledMousePos();
 
     if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
     {
         for (std::shared_ptr<Interactable> &component : _interactableComponents)
         {
-            if (pointInRect(component->getRect(), x, y) == true)
+            if (pointInRect(component->getRect(), mousePos.x, mousePos.y) == true)
             {
-                component->onClickDown(x, y);
+                component->onClickDown(mousePos.x, mousePos.y);
             }
         }
     }
     else if (e.type == SDL_MOUSEMOTION)
     {
-        checkHover(x, y);
+        checkHover(mousePos.x, mousePos.y);
     }
 }
 
@@ -69,6 +73,7 @@ void Layer::checkHover(int x, int y)
 {
     for (std::shared_ptr<Interactable> &component : _interactableComponents)
     {
+        //std::cout << component->getRect() << "\n";
         if (pointInRect(component->getRect(), x, y))
         {
             component->onHoverEnter();

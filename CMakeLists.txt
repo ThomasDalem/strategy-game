@@ -27,6 +27,7 @@ set(SRCS
     src/utils/Infos.cpp
     src/utils/SoundLoader.cpp
     src/utils/Random.cpp
+    src/utils/WinInfo.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
@@ -69,6 +70,7 @@ set(HEADERS
     src/utils/Color.hpp
     src/utils/SoundLoader.hpp
     src/utils/Random.hpp
+    src/utils/WinInfo.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp

@@ -15,10 +15,14 @@
         },
         "armored": {
             "shooting": [
-                {"name": "shots", "filepath": "assets/shots.wav"}
+                {"name": "tank_shots_1", "filepath": "assets/tank_shooting_1.wav"}
             ],
             "roger": [
-                {"name": "roger_1", "filepath": "assets/roger_1.wav"}
+                {"name": "roger_1", "filepath": "assets/roger_1.wav"},
+                {"name": "roger_2", "filepath": "assets/roger_2.wav"},
+                {"name": "roger_3", "filepath": "assets/roger_3.wav"},
+                {"name": "roger_4", "filepath": "assets/roger_4.wav"},
+                {"name": "roger_5", "filepath": "assets/roger_5.wav"}
             ]
         }
     },

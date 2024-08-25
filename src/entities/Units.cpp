@@ -89,7 +89,7 @@ entt::entity makeFriendlyArmored(entt::registry &reg, TexturesLoader &textureLoa
 {
     const entt::entity e = reg.create();
 
-    const UnitType unitType = UnitType::INFANTRY;
+    const UnitType unitType = UnitType::ARMORED;
     const int health = 500;
     const int ammo = 500;
     const int range = 300;
@@ -164,7 +164,7 @@ entt::entity makeHostileArmored(entt::registry &reg, TexturesLoader &textureLoad
 {
     const entt::entity e = reg.create();
 
-    const UnitType unitType = UnitType::INFANTRY;
+    const UnitType unitType = UnitType::ARMORED;
     const int health = 500;
     const int ammo = 500;
     const int range = 300;
