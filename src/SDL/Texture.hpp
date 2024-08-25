@@ -2,6 +2,7 @@
 #define TEXTURE_HPP
 
 #include <string>
+#include <cstdint>
 #include <SDL2/SDL.h>
 
 #include "Renderer.hpp"
@@ -21,11 +22,14 @@ namespace SDL
         ~Texture();
 
         void loadFromSurface(Surface &surface, Renderer &renderer);
+
         SDL_Texture *getTexture();
         int getWidth() const;
         int getHeight() const;
         Vec2i getCenter() const;
         bool isLoaded() const;
+
+        void setAlpha(std::uint8_t alpha);
 
         void operator=(SDL_Texture *texture);
 

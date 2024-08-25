@@ -17,10 +17,12 @@
 #include "systems/game/EnemySystem.hpp"
 #include "systems/game/UnitSystem.hpp"
 #include "systems/game/BulletSystem.hpp"
+#include "systems/game/ZoneSystem.hpp"
 
 #include "SDL/Chunk.hpp"
 
 #include "entities/Units.hpp"
+#include "entities/Zones.hpp"
 
 #include "HUD/layers/InGame.hpp"
 
@@ -43,7 +45,10 @@ void MainLoop::loop()
     const uint16_t screenCenterX = _app.getScreenWidth() / 2;
     const uint16_t screenCenterY = _app.getScreenHeight() / 2;
     makeBase(reg, texturesLoader, screenCenterX, screenCenterY);
-    makeEnemyInfantry(reg, texturesLoader, 1000.f, 1000.f);
+    //makeEnemyInfantry(reg, texturesLoader, 1000.f, 1000.f);
+
+    const std::vector<Vec2i> points = {{500, 500}, {600, 500}, {600, 600}, {500, 600}};
+    makeZone(reg, ZoneType::WOODS, points);
 
     Timer frameTimer; // To calculate the time between frames
     Timer gameTimer;
@@ -72,16 +77,17 @@ void MainLoop::loop()
         _app.getRenderer().clear();
 
         enemySystem(reg);
-        spawnEnemies(reg, texturesLoader, gameTimer.getDeltaTime());
+        //spawnEnemies(reg, texturesLoader, gameTimer.getDeltaTime());
         makeEngagements(reg, gameTimer.getDeltaTime());
         checkUnitsHealth(reg);
         moveUnits(reg);
         moveObjects(reg, frameTimer.getDeltaTime());
         bulletSystem(reg, frameTimer.getDeltaTime());
+        ZoneSystem(reg);
 
         frameTimer.start();
-        drawHealth(reg, _app.getRenderer());
         updateRenderSystem(reg, _app.getRenderer(), true);
+        drawHealth(reg, _app.getRenderer());
 
         inGameHUD.draw(_app.getRenderer());
 

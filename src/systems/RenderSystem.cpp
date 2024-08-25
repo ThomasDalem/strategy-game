@@ -4,6 +4,7 @@
 #include "components/Rectangle.hpp"
 #include "components/Circle.hpp"
 #include "components/Line.hpp"
+#include "components/Polygon.hpp"
 
 #include <iostream>
 
@@ -54,9 +55,19 @@ void drawLines(entt::registry &reg, SDL::Renderer &renderer)
     });
 }
 
+void drawPolygons(entt::registry &reg, SDL::Renderer &renderer)
+{
+    auto view = reg.view<Polygon>();
+    view.each([&renderer](Polygon &polygon){
+        renderer.drawPolygon(polygon.xs, polygon.ys, polygon.color);
+    });
+}
+
 void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug)
 {
     const auto view = reg.view<Sprite>();
+
+    drawPolygons(reg, renderer);
 
     auto f = [&](Sprite &sprite)
     {
@@ -81,7 +92,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         };
 
         if (sprite.textureRect.width < 0 || sprite.textureRect.height < 0) {
-            renderer.copyEx(*sprite.texture.get(), sprite.angle, NULL, &rect, sprite.flip);
+            renderer.copyEx(*sprite.texture.get(), sprite.alpha, sprite.angle, NULL, &rect, sprite.flip);
         }
         else {
             SDL_Rect spriteRect = {
@@ -90,7 +101,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
                 sprite.textureRect.width,
                 sprite.textureRect.height
             };
-            renderer.copyEx(*sprite.texture.get(), sprite.angle, &spriteRect, &rect, sprite.flip);
+            renderer.copyEx(*sprite.texture.get(), sprite.alpha, sprite.angle, &spriteRect, &rect, sprite.flip);
         }
     };
     view.each(f);

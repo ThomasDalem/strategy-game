@@ -14,6 +14,7 @@ struct Sprite {
     float angle;
     SDL_RendererFlip flip;
     std::shared_ptr<SDL::Texture> texture;
+    std::uint8_t alpha;
 };
 
 #endif // SPRITE_HPP

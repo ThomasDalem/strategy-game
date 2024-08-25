@@ -54,29 +54,55 @@ int Renderer::clear()
     return SDL_RenderClear(_renderer);
 }
 
-int Renderer::copy(Texture &texture, const SDL_Rect *sourceRect, const SDL_Rect *destRect)
+void Renderer::copy(Texture &texture, const SDL_Rect *sourceRect, const SDL_Rect *destRect)
 {
-    return SDL_RenderCopy(_renderer, texture.getTexture(), sourceRect, destRect);
+    SDL_RenderCopy(_renderer, texture.getTexture(), sourceRect, destRect);
 }
 
-int Renderer::copyEx(Texture &texture,
+void Renderer::copyEx(Texture &texture,
                      float angle,
                      const SDL_Rect *srcRect,
                      const SDL_Rect *dstRect,
                      SDL_RendererFlip flip)
 {
-    return SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, NULL, flip);
+    SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, NULL, flip);
 }
 
-int Renderer::copyEx(Texture &texture,
+void Renderer::copyEx(Texture &texture,
+                     std::uint8_t alpha,
+                     float angle,
+                     const SDL_Rect *srcRect,
+                     const SDL_Rect *dstRect,
+                     SDL_RendererFlip flip)
+{
+    SDL_SetTextureAlphaMod(texture.getTexture(), alpha);
+    SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, NULL, flip);
+    SDL_SetTextureAlphaMod(texture.getTexture(), SDL_ALPHA_OPAQUE);
+}
+
+void Renderer::copyEx(Texture &texture,
                      Vec2i &center,
                      float angle,
                      const SDL_Rect *srcRect,
                      const SDL_Rect *dstRect,
                      SDL_RendererFlip flip)
 {
-    SDL_Point c(center);
-    return SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, &c, flip);
+    const SDL_Point c(center);
+    SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, &c, flip);
+}
+
+void Renderer::copyEx(Texture &texture,
+                     std::uint8_t alpha,
+                     Vec2i &center,
+                     float angle,
+                     const SDL_Rect *srcRect,
+                     const SDL_Rect *dstRect,
+                     SDL_RendererFlip flip)
+{
+    SDL_SetTextureAlphaMod(texture.getTexture(), alpha);
+    const SDL_Point c(center);
+    SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, &c, flip);
+    SDL_SetTextureAlphaMod(texture.getTexture(), SDL_ALPHA_OPAQUE);
 }
 
 void Renderer::drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -120,6 +146,11 @@ void Renderer::drawFilledCircle(const Vec2f &pos, int16_t radius, const Color &c
 void Renderer::drawLine(const Vec2f &a, const Vec2f &b)
 {
     SDL_RenderDrawLine(_renderer, a.x, a.y, b.x, b.y);
+}
+
+void Renderer::drawPolygon(const std::vector<short int> &xs, const std::vector<short int> &ys, const Color &color)
+{
+    filledPolygonRGBA(_renderer, xs.data(), ys.data(), xs.size(), color.r, color.g, color.b, color.a);
 }
 
 void Renderer::present()

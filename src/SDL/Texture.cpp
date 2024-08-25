@@ -81,6 +81,11 @@ bool Texture::isLoaded() const
     return _isLoaded;
 }
 
+void Texture::setAlpha(std::uint8_t alpha)
+{
+    SDL_SetTextureAlphaMod(_texture, alpha);
+}
+
 void Texture::operator=(SDL_Texture *texture)
 {
     _texture = texture;

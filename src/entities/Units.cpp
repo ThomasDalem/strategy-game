@@ -23,10 +23,11 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, float 
     const int speed = 0;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    bool isActive = true;
+    const bool isHidden = false;
+    const std::uint8_t alpha = SDL_ALPHA_OPAQUE;
     
     reg.emplace<Position>(e, x, y);
-    reg.emplace<Unit>(e, unitType, health, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
+    reg.emplace<Unit>(e, unitType, health, health, ammo, range, range, damage, fireRate, speed, speed, lastShotTime, target, isHidden);
     Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -36,7 +37,8 @@ entt::entity makeBase(entt::registry &reg, TexturesLoader &textureLoader, float 
         RectF{x, y, 61.f, 44.f}, // Displayed sprite rect
         0.f,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("../assets/base.png")
+        textureLoader.getTexture("../assets/base.png"),
+        alpha
     );
     const Vec2i center = sprite.texture->getCenter();
     sprite.pos -= center;
@@ -61,10 +63,11 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
     const int speed = 50;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    const bool isActive = true;
+    const bool isHidden = false;
+    const std::uint8_t alpha = SDL_ALPHA_OPAQUE;
 
     reg.emplace<Position>(e, x, y);
-    reg.emplace<Unit>(e, unitType, health, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
+    reg.emplace<Unit>(e, unitType, health, health, ammo, range, range, damage, fireRate, speed, speed, lastShotTime, target, isHidden);
     Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -74,7 +77,8 @@ entt::entity makeAlliedInfantry(entt::registry &reg, TexturesLoader &textureLoad
         RectF{x, y, 64.f, 64.f}, // Displayed sprite rect
         0.f,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("../assets/allied_infantry.png")
+        textureLoader.getTexture("../assets/allied_infantry.png"),
+        alpha
     );
     const bool isDragged = false;
     reg.emplace<Allied>(e, isDragged);
@@ -98,10 +102,11 @@ entt::entity makeFriendlyArmored(entt::registry &reg, TexturesLoader &textureLoa
     const int speed = 30;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    const bool isActive = true;
+    const bool isHidden = false;
+    const std::uint8_t alpha = SDL_ALPHA_OPAQUE;
 
     reg.emplace<Position>(e, x, y);
-    reg.emplace<Unit>(e, unitType, health, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
+    reg.emplace<Unit>(e, unitType, health, health, ammo, range, range, damage, fireRate, speed, speed, lastShotTime, target, isHidden);
     Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -111,7 +116,8 @@ entt::entity makeFriendlyArmored(entt::registry &reg, TexturesLoader &textureLoa
         RectF{x, y, 64.f, 64.f}, // Displayed sprite rect
         0.f,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("../assets/armored.png")
+        textureLoader.getTexture("../assets/armored.png"),
+        alpha
     );
     const bool isDragged = false;
     reg.emplace<Allied>(e, isDragged);
@@ -135,10 +141,11 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
     const int speed = 10;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    bool isActive = true;
+    const bool isHidden = false;
+    const std::uint8_t alpha = SDL_ALPHA_OPAQUE;
 
     reg.emplace<Position>(e, x, y);
-    reg.emplace<Unit>(e, unitType, health, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
+    reg.emplace<Unit>(e, unitType, health, health, ammo, range, range, damage, fireRate, speed, speed, lastShotTime, target, isHidden);
     Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -148,7 +155,8 @@ entt::entity makeEnemyInfantry(entt::registry &reg, TexturesLoader &textureLoade
         RectF{x, y, 61.f, 61.f}, // Displayed sprite rect
         0.f,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("../assets/infantry.png")
+        textureLoader.getTexture("../assets/infantry.png"),
+        alpha
     );
     const Vec2f center = sprite.texture->getCenter();
     sprite.pos -= center;
@@ -173,10 +181,11 @@ entt::entity makeHostileArmored(entt::registry &reg, TexturesLoader &textureLoad
     const int speed = 30;
     const float lastShotTime = 0.f;
     const entt::entity target = entt::null;
-    bool isActive = true;
+    const bool isHidden = false;
+    const std::uint8_t alpha = SDL_ALPHA_OPAQUE;
 
     reg.emplace<Position>(e, x, y);
-    reg.emplace<Unit>(e, unitType, health, health, ammo, range, damage, fireRate, speed, lastShotTime, target, isActive);
+    reg.emplace<Unit>(e, unitType, health, health, ammo, range, range, damage, fireRate, speed, speed, lastShotTime, target, isHidden);
     Sprite &sprite = reg.emplace<Sprite>(
         e,
         false,                   // Hidden
@@ -186,7 +195,8 @@ entt::entity makeHostileArmored(entt::registry &reg, TexturesLoader &textureLoad
         RectF{x, y, 62.f, 62.f}, // Displayed sprite rect
         0.f,                     // Sprite angle
         SDL_FLIP_NONE,           // Texture flip
-        textureLoader.getTexture("../assets/hostile_armored.png")
+        textureLoader.getTexture("../assets/hostile_armored.png"),
+        alpha
     );
     const Vec2f center = sprite.texture->getCenter();
     sprite.pos -= center;

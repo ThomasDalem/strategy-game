@@ -23,13 +23,15 @@ struct Unit
     int health;
     int totalHealth;
     int ammo;
+    int baseRange;
     int range;
     int damage;
     int firerate;
+    int baseSpeed;
     int speed;
     float lastShotTime;
     entt::entity target;
-    bool isActive;
+    bool isHidden;
 };
 
 #endif // UNIT_INFO_HPP

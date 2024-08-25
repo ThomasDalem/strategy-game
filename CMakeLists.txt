@@ -37,6 +37,7 @@ set(SRCS
     src/SDL/Chunk.cpp
     src/entities/Units.cpp
     src/entities/Bullet.cpp
+    src/entities/Zones.cpp
     src/systems/RenderSystem.cpp
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
@@ -44,6 +45,7 @@ set(SRCS
     src/systems/game/EnemySystem.cpp
     src/systems/game/UnitSystem.cpp
     src/systems/game/BulletSystem.cpp
+    src/systems/game/ZoneSystem.cpp
     src/game/Data.cpp
     src/game/Shop.cpp
 )
@@ -94,8 +96,11 @@ set(HEADERS
     src/components/game/Waypoint.hpp
     src/components/game/Selected.hpp
     src/components/tags/Base.hpp
+    src/components/Polygon.hpp
+    src/components/Zone.hpp
     src/entities/Units.hpp
     src/entities/Bullet.hpp
+    src/entities/Zones.hpp
     src/systems/RenderSystem.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
@@ -103,6 +108,7 @@ set(HEADERS
     src/systems/game/EnemySystem.hpp
     src/systems/game/UnitSystem.hpp
     src/systems/game/BulletSystem.hpp
+    src/systems/game/ZoneSystem.hpp
     src/game/Data.hpp
     src/game/Shop.hpp
 )

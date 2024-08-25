@@ -39,9 +39,6 @@ entt::entity findTarget(entt::registry &reg, entt::entity unit, auto &enemiesVie
     float closestEnemyDistance = std::numeric_limits<float>::infinity();
 
     for (const entt::entity enemy : enemiesView) {
-        if (reg.get<Unit>(enemy).isActive == false) { // to prevent shooting not placed units
-            continue;
-        }
         const Position &enemyPos = reg.get<Position>(enemy);
         const float distance = getDistance(unitPos, enemyPos);
 
@@ -98,9 +95,6 @@ void engage(entt::registry &reg, float gameTime, auto &units, auto &enemies)
     for (const entt::entity unit : units) {
         Unit &infos = reg.get<Unit>(unit);
 
-        if (infos.isActive == false) {
-            continue;
-        }
         infos.target = findTarget(reg, unit, enemies);
         engageTarget(reg, gameTime, unit, infos.target);
     }
@@ -181,28 +175,6 @@ void createUnit(entt::registry &reg, TexturesLoader &textureLoader, UnitType uni
     reg.emplace<Waypoint>(unit, dir);
 
     Data::getInstance().supplies -= unitPrices[unitType];
-}
-
-void deployUnit(entt::registry &reg)
-{
-    int x = 0;
-    int y = 0;
-
-    SDL_GetMouseState(&x, &y);
-
-    const auto view = reg.view<Unit, Allied, Circle>();
-
-    for (entt::entity e : view) {
-        Allied &allied = reg.get<Allied>(e);
-        Circle &circle = reg.get<Circle>(e);
-        Unit &unit = reg.get<Unit>(e);
-
-        if (allied.isDragged) {
-            allied.isDragged = false;
-            circle.hidden = true;
-            unit.isActive = true;
-        }
-    }
 }
 
 void drawHealth(entt::registry &reg, SDL::Renderer &renderer)
