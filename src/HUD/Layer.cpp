@@ -47,11 +47,7 @@ void Layer::draw(SDL::Renderer &renderer)
 
 void Layer::handleInput(const SDL_Event &e)
 {
-    int x = 0;
-    int y = 0;
-
-    SDL_GetMouseState(&x, &y);
-    Vec2i mousePos = WinInfo::getInstance().getScaledMousePos();
+    const Vec2i mousePos = WinInfo::getInstance().getScaledMousePos();
 
     if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
     {
@@ -73,7 +69,6 @@ void Layer::checkHover(int x, int y)
 {
     for (std::shared_ptr<Interactable> &component : _interactableComponents)
     {
-        //std::cout << component->getRect() << "\n";
         if (pointInRect(component->getRect(), x, y))
         {
             component->onHoverEnter();

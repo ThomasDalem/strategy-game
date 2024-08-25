@@ -69,7 +69,14 @@ SDL::MixChunk *SoundLoader::loadChunk(const std::string &name)
     std::string filepath("../");
     filepath += it->as_object().at("filepath").as_string();
 
-    return &_chunks.emplace(name, filepath).first->second;
+    SDL::MixChunk &chunk = _chunks.emplace(name, filepath).first->second;
+    if (it->as_object().if_contains("vol"))
+    {
+        const int vol = it->as_object().at("vol").as_int64();
+        chunk.setVolume(vol);
+    }
+
+    return &chunk;
 }
 
 SDL::MixChunk *SoundLoader::loadRandomChunk(std::string &group)
@@ -95,5 +102,12 @@ SDL::MixChunk *SoundLoader::loadRandomChunk(std::string &group)
     std::string filepath("../");
     filepath += obj.at("filepath").as_string();
 
-    return &_chunks.emplace(obj.at("name").as_string(), filepath).first->second;
+    SDL::MixChunk &chunk = _chunks.emplace(obj.at("name").as_string(), filepath).first->second;
+    if (obj.if_contains("vol"))
+    {
+        const int vol = obj.at("vol").as_int64();
+        chunk.setVolume(vol);
+    }
+
+    return &chunk;
 }

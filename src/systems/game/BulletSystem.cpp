@@ -1,10 +1,12 @@
 #include "BulletSystem.hpp"
+#include "utils/SoundLoader.hpp"
 
 void bulletSystem(entt::registry &reg, float deltaTime)
 {
     auto view = reg.view<Line, BulletInfo>();
 
-    for (const entt::entity e : view) {
+    for (const entt::entity e : view)
+    {
         Line &line = reg.get<Line>(e);
         const BulletInfo &bulletInfo = reg.get<BulletInfo>(e);
         const Vec2f addPos = normalize(bulletInfo.to - bulletInfo.from) * bulletInfo.speed * deltaTime;
@@ -17,7 +19,8 @@ void bulletSystem(entt::registry &reg, float deltaTime)
             line.b = bulletInfo.to; // if the bullet is over the end pos we put it back to the end pos
             hasBulletHit = true;
         }
-        else {
+        else
+        {
             line.b += addPos;
         }
 
@@ -25,7 +28,16 @@ void bulletSystem(entt::registry &reg, float deltaTime)
         {
             line.a += addPos;
             const float distC = getDistance(bulletInfo.from, line.a);
-            if (distA <= distC) {
+            if (distA <= distC)
+            {
+                if (bulletInfo.destroySound.size() != 0)
+                {
+                    SDL::MixChunk *chunk = SoundLoader::getInstance().loadChunk(bulletInfo.destroySound);
+                    if (chunk)
+                    {
+                        chunk->play();
+                    }
+                }
                 reg.destroy(e);
             }
         }

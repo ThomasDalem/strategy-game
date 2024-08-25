@@ -69,7 +69,14 @@ void engageTarget(entt::registry &reg, float gameTime, entt::entity unit, entt::
 
     if (lastShot > infos.firerate / 10.f && getDistance(unitPos, enemyPos) < infos.range) {
         const float bulletSpeed = 600.f;
-        makeBullet(reg, unitPos, enemyPos, bulletSpeed);
+        if (infos.type == UnitType::ARMORED)
+        {
+            makeBullet(reg, unitPos, enemyPos, bulletSpeed, "far_explosion");
+        }
+        else
+        {
+            makeBullet(reg, unitPos, enemyPos, bulletSpeed);
+        }
 
         // SFX
         std::string group = getUnitSoundGroup(infos) + "/shooting";
@@ -243,6 +250,11 @@ void selectUnit(entt::registry &reg)
             Circle &unitCircle = reg.get<Circle>(unit);
             reg.emplace<Selected>(unit);
             unitCircle.hidden = false;
+            SDL::MixChunk *chunk = SoundLoader::getInstance().loadChunk("select");
+            if (chunk)
+            {
+                chunk->play();
+            }
             return;
         }
     }

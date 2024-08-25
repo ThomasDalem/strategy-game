@@ -15,7 +15,10 @@
         },
         "armored": {
             "shooting": [
-                {"name": "tank_shots_1", "filepath": "assets/tank_shooting_1.wav"}
+                {"name": "tank_shots_1", "filepath": "assets/tank_shot_1.wav", "vol": 90},
+                {"name": "tank_shots_2", "filepath": "assets/tank_shot_2.wav", "vol": 90},
+                {"name": "tank_shots_3", "filepath": "assets/tank_shot_3.wav", "vol": 90},
+                {"name": "tank_shots_4", "filepath": "assets/tank_shot_4.wav", "vol": 90}
             ],
             "roger": [
                 {"name": "roger_1", "filepath": "assets/roger_1.wav"},
@@ -33,6 +36,12 @@
         {"name": "roger_4", "filepath": "assets/roger_4.wav"},
         {"name": "roger_5", "filepath": "assets/roger_5.wav"},
         {"name": "shots_1", "filepath": "assets/shots.wav"},
-        {"name": "shots_2", "filepath": "assets/shots_2.wav"}
+        {"name": "shots_2", "filepath": "assets/shots_2.wav"},
+        {"name": "tank_shots_1", "filepath": "assets/tank_shot_1.wav", "vol": 90},
+        {"name": "tank_shots_2", "filepath": "assets/tank_shot_2.wav", "vol": 90},
+        {"name": "tank_shots_3", "filepath": "assets/tank_shot_3.wav", "vol": 90},
+        {"name": "tank_shots_4", "filepath": "assets/tank_shot_4.wav", "vol": 90},
+        {"name": "far_explosion", "filepath": "assets/far_explosion.wav"},
+        {"name": "select", "filepath": "assets/select.wav"}
     ]
 }
